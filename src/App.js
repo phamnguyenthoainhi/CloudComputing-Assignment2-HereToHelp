@@ -7,6 +7,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Route} from 'react-router-dom';
 import themeFile from "./theme/theme";
 import HomePage from './components/homepage/HomePage';
+import "./Style.css"
 class App extends Component {
   render () {
     const theme = createMuiTheme(themeFile);
@@ -15,7 +16,7 @@ class App extends Component {
         <Provider store={store}>
             <ThemeProvider theme={theme}>
                 <div className="App">
-                <Route exact path={'/r'} render={(props) => < HomePage {...props} />} />
+                <Route exact path={'/'} render={(props) => < HomePage {...props} />} />
 
                 </div>
             </ThemeProvider>

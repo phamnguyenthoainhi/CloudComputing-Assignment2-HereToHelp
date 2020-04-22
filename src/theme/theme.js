@@ -1,16 +1,30 @@
 import {createMuiTheme} from "@material-ui/core/styles";
 const theme = createMuiTheme({
-    color: {
-        primary1: "#E3CFB5",
-        primary2: "#FFFFFF",
-
-        primary3: "#3C5155",
-
-        secondary: "#90B494",
-        contrast: "#718F94",
-        
-
+    orange: {
+        light: '#FFD8B8',
+        dark: '#FFCDA3',
+        darker: '#FFBE87',
+        darkest: '#DE9D66'
     },
-    font: "'Raleway', sans-serif;"
+    green: {
+        light: '#BEC9B7',
+        dark: '#728567',
+        darker: '#3B4C32',
+        darkest: '#273620'
+    },
+    blue: {
+        light: '#808DA6',
+        dark: '#51617D',
+        darker: '#35435D',
+        darkest: '#27334A'
+    },
+    pale: '#F2F1E6',
+    greenyellow: {
+        light: '#E3DEAC',
+        dark: '#D4CE96',
+        darker: '#C2BC84',
+        darkest: '#999462'
+    },
+    font: "'Poppins', sans-serif;"
 });
 export default theme;
