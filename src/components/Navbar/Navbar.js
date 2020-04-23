@@ -8,7 +8,7 @@ class Navbar extends Component {
         const {classes} = this.props; 
         return (
             <div className='container-fluid'>
-                <img src="images/a.jpg" width="30%" height="30%" alt="Logo"/>
+                `<img src="images/a.jpg" width="20%" height="20%" alt="Logo" style={{paddingTop :"10px"}}/>`
                 <nav className="navbar navbar-expand-lg navbar-light .bg-transparent" style={{textAlign:'center'}}>
                     <a className="navbar-brand" href="#">
                     </a>

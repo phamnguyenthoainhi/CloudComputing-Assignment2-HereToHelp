@@ -25,6 +25,9 @@ const theme = createMuiTheme({
         darker: '#C2BC84',
         darkest: '#999462'
     },
-    font: "'Poppins', sans-serif;"
+    font: "'Poppins', sans-serif;",
+    button: {
+        radius: 40
+    }
 });
 export default theme;
