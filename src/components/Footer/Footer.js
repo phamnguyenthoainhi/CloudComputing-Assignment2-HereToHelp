@@ -3,7 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import style from './FooterStyle';
 import {connect} from 'react-redux';
 import { withStyles } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
 class Footer extends Component {
     render() {
         const {classes} = this.props; 
@@ -25,13 +24,7 @@ class Footer extends Component {
                         </Grid>
                     </Grid>
                     <Grid item xs>
-                        {/* <Typography variant="h4">
-                        We are here to help
-                        </Typography> */}
-                      
-                        {/* +84123456789<br/>
-                        702 Nguyen Van Linh, District 7, HCM City<br/>
-                        Copyright &copy; 2020 */}
+                       
                     </Grid>
                     <Grid item xs>
                         +84123456789<br/>

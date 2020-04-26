@@ -8,6 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import {Link} from "react-router-dom";
+
 class HomePage extends Component {
 
     render() {
@@ -25,7 +27,7 @@ class HomePage extends Component {
                                     <Typography className={classes.content}>
                                     From an idea to help the quanrantined get over with Coronavirus that grown into this project.
                                     </Typography>
-                                    <Button className={classes.problemBtn}>Tell us your problem</Button>
+                                    <Button className={classes.problemBtn} component={Link} to = "/problem">Tell us your problem</Button>
                             </Box>
                                
                             
@@ -46,7 +48,7 @@ class HomePage extends Component {
                                     <Typography className={classes.content}>
                                     Join our volunteer community to help other people
                                     </Typography>
-                                    <Button  className={classes.registerBtn}>Register</Button>
+                                    <Button  className={classes.registerBtn} component={Link} to = "/register" >Register</Button>
                             </Box>
                                
                             

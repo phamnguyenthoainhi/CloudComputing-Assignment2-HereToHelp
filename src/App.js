@@ -8,6 +8,9 @@ import { BrowserRouter, Route} from 'react-router-dom';
 import themeFile from "./theme/theme";
 import HomePage from './components/homepage/HomePage';
 import "./Style.css"
+import ProblemForm from './components/Problem/ProblemForm';
+import RegisterForm from './components/Register/RegisterForm';
+import AboutUs from './components/AboutUs/AboutUs';
 class App extends Component {
   render () {
     const theme = createMuiTheme(themeFile);
@@ -17,6 +20,9 @@ class App extends Component {
             <ThemeProvider theme={theme}>
                 <div className="App">
                 <Route exact path={'/'} render={(props) => < HomePage {...props} />} />
+                <Route exact path={'/register'} render={(props) => <RegisterForm {...props} />} />
+                <Route exact path={'/problem'} render={(props) => <ProblemForm {...props} />} />
+                <Route exact path={'/about'} render={(props) => <AboutUs {...props} />} />
 
                 </div>
             </ThemeProvider>
