@@ -47,6 +47,15 @@ const style = (theme) => ({
             color: theme.green.darker
         }
         
+    },
+    dialog: {
+        margin: 40,
+        fontFamily: theme.font,
+        
+    },text: {
+        fontFamily: theme.font,
+        fontSize: 17,
+        color: theme.orange.darkest
     }
     
 })

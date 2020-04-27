@@ -11,6 +11,7 @@ import "./Style.css"
 import ProblemForm from './components/Problem/ProblemForm';
 import RegisterForm from './components/Register/RegisterForm';
 import AboutUs from './components/AboutUs/AboutUs';
+import ProblemSuccess from './components/ProblemSuccess/ProblemSuccess'
 class App extends Component {
   render () {
     const theme = createMuiTheme(themeFile);
@@ -23,7 +24,7 @@ class App extends Component {
                 <Route exact path={'/register'} render={(props) => <RegisterForm {...props} />} />
                 <Route exact path={'/problem'} render={(props) => <ProblemForm {...props} />} />
                 <Route exact path={'/about'} render={(props) => <AboutUs {...props} />} />
-
+                <Route exact path={'/successproblem'} render={(props) => <ProblemSuccess {...props} />} />
                 </div>
             </ThemeProvider>
   
