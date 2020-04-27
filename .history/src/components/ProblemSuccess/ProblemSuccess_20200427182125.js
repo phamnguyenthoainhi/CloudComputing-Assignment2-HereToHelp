@@ -27,8 +27,12 @@ class ProblemSuccess extends Component {
         }
     }
 
-
-
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.problem !== prevState.problem) {
+            return ({problem: nextProps.problem})
+           
+        }  
+    }
     componentDidUpdate(prevProps) {
         if (this.props.loadingTask !== prevProps.loadingTask) {
             this.setState({
@@ -43,7 +47,13 @@ class ProblemSuccess extends Component {
         }
     }
     
- 
+    // createATask = () => {
+    //     const task = {
+    //         status: 'Pending'
+    //     }
+        
+    //     // this.createTask(task)
+    // }
 
     render() {
     const {classes} = this.props

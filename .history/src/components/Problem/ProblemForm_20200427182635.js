@@ -235,7 +235,6 @@ class ProblemForm extends Component {
                                 aria-labelledby="alert-dialog-title"
                                 aria-describedby="alert-dialog-description"
                                 > 
-                                
                                 <DialogContent>
                                     <Typography gutterBottom className={classes.text}>
                                         Your problem has been registered sucessfully! One more step to go!

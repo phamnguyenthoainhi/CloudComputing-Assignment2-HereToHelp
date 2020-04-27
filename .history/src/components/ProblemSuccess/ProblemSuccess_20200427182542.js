@@ -27,8 +27,13 @@ class ProblemSuccess extends Component {
         }
     }
 
-
-
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.problem !== prevState.problem) {
+            return ({problem: nextProps.problem})
+           
+        }  
+    }
+    
     componentDidUpdate(prevProps) {
         if (this.props.loadingTask !== prevProps.loadingTask) {
             this.setState({
