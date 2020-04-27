@@ -1,14 +1,20 @@
 import {
-    REGISTER_PROBLEM, REGISTER_PROBLEM_LOADING,REGISTER_PROBLEM_SUCCESS, 
+    REGISTER_PROBLEM_LOADING,REGISTER_PROBLEM_SUCCESS, GET_PROBLEM_SUCCESS,
     REGISTER_ACCOUNT, REGISTER_ACCOUNT_LOADING,REGISTER_ACCOUNT_SUCCESS,
     LOGIN_ACCOUNT, LOGIN_ACCOUNT_LOADING,LOGIN_ACCOUNT_SUCCESS,
+    REGISTER_TASK_LOADING, REGISTER_TASK_SUCCESS
+    
     
 } from '../actions/actionTypes';
 
 const initialState = {
     problem: {},
     loadingProblem: false,
-    successProblem: false
+    successProblem: false,
+    loadingTask: false,
+    successTask: false,
+    
+
 
 
 }
@@ -16,13 +22,11 @@ const initialState = {
 export default function (state = initialState, action) {
     switch(action.type) {
    
-        case REGISTER_PROBLEM:
+        case GET_PROBLEM_SUCCESS:
             return {
                 ...state,
                 problem: action.payload,
-                loadingProblem: false,
-                successProblem: false
-            }
+        }
         case REGISTER_PROBLEM_LOADING: 
 
             return {
@@ -35,6 +39,21 @@ export default function (state = initialState, action) {
                 successProblem: action.payload,
                 loadingProblem: false
             }
+
+
+            case REGISTER_TASK_LOADING: 
+
+            return {
+                ...state,
+                loadingTask: true
+            }
+        case REGISTER_TASK_SUCCESS:
+            return {
+                ...state,
+                successTask: action.payload,
+                loadingTask: false
+            }
+            
     
         default:
             return state;                

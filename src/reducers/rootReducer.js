@@ -3,5 +3,7 @@ import UserReducer from './UserReducer.js'
 export default combineReducers({
     problem: UserReducer,
     loadingProblem: UserReducer,
-    successProblem: UserReducer
+    successProblem: UserReducer,
+    loadingTask: UserReducer,
+    successTask: UserReducer
 })
