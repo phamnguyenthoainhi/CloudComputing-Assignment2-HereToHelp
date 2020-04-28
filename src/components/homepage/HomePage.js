@@ -20,7 +20,7 @@ class HomePage extends Component {
                 <div className ={classes.contenthome}>
                     <Grid container spacing={0} className={classes.grid}>
                         <Grid item lg={6} className={classes.itemtopleft}>
-                            <Box className={classes.containerword}>
+                            <Box className={classes.containerword} style={{textAlign: "center"}}>
                                 <Typography className={classes.welcome}>
                                     Welcome to HereToHelp
                                     </Typography>
@@ -40,7 +40,7 @@ class HomePage extends Component {
                         <Grid item lg={6} className={classes.itemmiddleleft}>
                             <img src="https://images.unsplash.com/photo-1578357078586-491adf1aa5ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80" width="100%" height="100%" alt="Logo"/>
                         </Grid>
-                        <Grid item lg={6} className={classes.itemmiddleright}>
+                        <Grid item lg={6} className={classes.itemmiddleright} style={{textAlign: "center"}}>
                             <Box className={classes.containerwordmiddle}>
                                 <Typography className={classes.welcome}>
                                     Make a true impact

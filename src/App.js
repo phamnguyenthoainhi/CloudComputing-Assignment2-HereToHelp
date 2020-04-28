@@ -12,6 +12,9 @@ import ProblemForm from './components/Problem/ProblemForm';
 import RegisterForm from './components/Register/RegisterForm';
 import AboutUs from './components/AboutUs/AboutUs';
 import ProblemSuccess from './components/ProblemSuccess/ProblemSuccess'
+import Login from './components/Login/Login';
+import Tasks from './components/Tasks/AllTasks/Tasks';
+import VolunteerTasks from './components/Tasks/VolunteerTasks/VolunteerTasks';
 class App extends Component {
   render () {
     const theme = createMuiTheme(themeFile);
@@ -25,6 +28,11 @@ class App extends Component {
                 <Route exact path={'/problem'} render={(props) => <ProblemForm {...props} />} />
                 <Route exact path={'/about'} render={(props) => <AboutUs {...props} />} />
                 <Route exact path={'/successproblem'} render={(props) => <ProblemSuccess {...props} />} />
+                <Route exact path={'/login'} render={(props) => <Login {...props} />} />
+                <Route exact path={'/allTasks'} render={(props) => <Tasks {...props} />} />
+                <Route exact path={'/myTasks'} render={(props) => <VolunteerTasks {...props} />} />
+
+
                 </div>
             </ThemeProvider>
   

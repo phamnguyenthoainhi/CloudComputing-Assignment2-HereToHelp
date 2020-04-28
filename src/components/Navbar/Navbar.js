@@ -7,7 +7,7 @@ class Navbar extends Component {
     render() {
        
         return (
-            <div className='container-fluid'>
+            <div className='container-fluid' style={{textAlign: "center"}}>
                 <img src="images/a.jpg" width="20%" height="20%" alt="Logo" style={{paddingTop :"10px"}}/>
                 <nav className="navbar navbar-expand-lg navbar-light .bg-transparent" style={{textAlign:'center'}}>
                     <a className="navbar-brand" href="/">

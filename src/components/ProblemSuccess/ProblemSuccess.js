@@ -50,7 +50,7 @@ class ProblemSuccess extends Component {
     
         return (
 
-            <div>
+            <div style={{textAlign: "center"}}>
                 {this.state.loadingTask ? 
                 (
                     <div>

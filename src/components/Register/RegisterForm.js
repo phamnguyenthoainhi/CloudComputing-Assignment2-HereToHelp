@@ -67,7 +67,7 @@ class RegisterForm extends Component {
                         <img className={classes.img} src="images/a.jpg" width="70%"  alt="Volunteer"/>
                         
                     </Grid> */}
-                    <div className={classes.right}>
+                    <div className={classes.right} style={{textAlign: "center"}}>
                         <form className={classes.form}>
                             <Typography variant="h4" gutterBottom className={classes.tittle}>
                             Join Our Volunteer Communnity

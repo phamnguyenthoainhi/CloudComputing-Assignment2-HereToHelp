@@ -101,7 +101,7 @@ class ProblemForm extends Component {
         console.log(this.state.loadingProblem)
         const {classes} = this.props; 
         return (
-            <div>
+            <div style={{textAlign: "center"}}>
                 <img src="images/a.jpg" width="20%" height="20%" alt="Logo" style={{paddingTop :"10px"}}/>
 
                 <form className={classes.form} autoComplete="off">
