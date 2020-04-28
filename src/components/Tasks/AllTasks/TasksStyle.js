@@ -2,7 +2,7 @@ const style = (theme) => ({
     card: {
         minWidth: 300,
         fontFamlily: theme.font,
-        minHeight: 600,
+       
         backgroundColor: '#F4F3ED',
         margin: 20
     },
@@ -39,6 +39,13 @@ const style = (theme) => ({
             backgroundColor: theme.green.darker,
             color: theme.orange.light
         }
+    },
+    skeleton: {
+        margin: 20,
+        minWidth: 300,
+        backgroundColor: '#F4F3ED',
+        margin: 20,
+        minHeight: 250
     }
 
 

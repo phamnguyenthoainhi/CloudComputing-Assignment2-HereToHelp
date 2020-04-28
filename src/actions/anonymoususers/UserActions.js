@@ -3,7 +3,8 @@ import {
     REGISTER_ACCOUNT, REGISTER_ACCOUNT_LOADING,REGISTER_ACCOUNT_SUCCESS,
     LOGIN_ACCOUNT, LOGIN_ACCOUNT_LOADING,LOGIN_ACCOUNT_SUCCESS,
     REGISTER_TASK, REGISTER_TASK_LOADING,REGISTER_TASK_SUCCESS,
-    GET_PROBLEM_SUCCESS
+    GET_PROBLEM_SUCCESS,
+    GET_TASKS_LOADING,GET_TASKS_SUCCESS
     
 
 
@@ -95,6 +96,28 @@ export const getAProblem = (id) => dispatch => {
             
         }
     })
+}
+export const getTasks = () => dispatch => {
+    dispatch({
+        type: GET_TASKS_LOADING
+    })
+    fetch('http://localhost:8080/tasks', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+        },
+        
+    })
+    .then((res) =>  {
+        if(res.status === 200) {
+            dispatch({
+                type: GET_TASKS_SUCCESS,
+                payload: true
+            })
+        }
+    })
+
 }
 
 export const createTask = (task) => dispatch => {
