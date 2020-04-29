@@ -1,6 +1,6 @@
 import {
     
-    GET_TASKS_LOADING, GET_TASKS_SUCCESS,
+    GET_TASKS_LOADING, GET_TASKS_SUCCESS, TAKE_TASK_LOADING, TAKE_TASK_SUCCESS
     
 } from '../actions/actionTypes';
 
@@ -11,6 +11,8 @@ const initialState = {
     
     loadingTask: false,
     successTask: false,
+    loadingTakeTask: false,
+    successTakeTask: false
     
 
 }
@@ -30,6 +32,19 @@ export default function (state = initialState, action) {
                 tasks: action.payload,
                 loadingTasks: false
             }
+        
+        case TAKE_TASK_LOADING:
+            return {
+                ...state,
+                loadingTakeTask: true,
+        }
+        case TAKE_TASK_SUCCESS: 
+
+            return {
+                ...state,
+                successTakeTask: action.payload,
+                loadingTakeTask: false
+        }
         
             
         default:

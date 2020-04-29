@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import './App.css';
-import  {Provider} from 'react-redux';
-import store from './store';
+
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Route} from 'react-router-dom';
@@ -15,12 +15,59 @@ import ProblemSuccess from './components/ProblemSuccess/ProblemSuccess'
 import Login from './components/Login/Login';
 import Tasks from './components/Tasks/AllTasks/Tasks';
 import VolunteerTasks from './components/Tasks/VolunteerTasks/VolunteerTasks';
+import TaskDetails from './components/Tasks/TaskDetails/TaskDetails';
+import {getTasks} from './actions/volunteers/VolunteeerActions';
+
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        tasks: [],
+        loadingTasks: false
+        
+    }
+}
+componentDidMount() {
+  this.props.getTasks()
+}
+componentDidUpdate(prevProps) {
+  
+  if (this.props.loadingTasks !== prevProps.loadingTasks) {
+    this.setState({
+        loadingTasks: this.props.loadingTasks
+    })
+}
+    if (this.props.tasks !== prevProps.tasks) {
+      this.setState({
+          tasks: this.props.tasks
+      })
+  }
+
+  
+
+}
+
   render () {
     const theme = createMuiTheme(themeFile);
+      let path = window.location.pathname.replace("/", "");
+  
+      let IdPath;
+      
+      let task = this.state.tasks.filter((p) => p.id === Number(path))
+      for (let i = 0; i < task.length; i++) {
+        if (task[i].id !== '' ) {
+          task = task[i]
+          IdPath = task.id
+          break;
+        }
+        else IdPath = null;
+      }
+    
+    
     return (
+      
       <BrowserRouter>
-        <Provider store={store}>
+       
             <ThemeProvider theme={theme}>
                 <div className="App">
                 <Route exact path={'/'} render={(props) => < HomePage {...props} />} />
@@ -31,18 +78,38 @@ class App extends Component {
                 <Route exact path={'/login'} render={(props) => <Login {...props} />} />
                 <Route exact path={'/allTasks'} render={(props) => <Tasks {...props} />} />
                 <Route exact path={'/myTasks'} render={(props) => <VolunteerTasks {...props} />} />
+                <Route exact path={`/`+IdPath} render={(props) => <TaskDetails 
+                {...props} 
+                task = {task}
+                loading = {this.state.loadingTasks}
+
+              
+                />} />
 
 
                 </div>
             </ThemeProvider>
   
-        </Provider>
       </BrowserRouter>
+      // </Provider>
+
       
       
     );
   }
   
 }
+const mapDispatchToProps = dispatch => ({
+  getTasks: () => dispatch(getTasks())
 
-export default App;
+  
+
+
+})
+const mapStateToProps = state => ({
+  loadingTasks: state.taskReducer.loadingTasks,
+  tasks: state.taskReducer.tasks
+ 
+});
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
