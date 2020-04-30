@@ -3,11 +3,15 @@ const style = (theme) => ({
         minWidth: 300,
         fontFamlily: theme.font,
        
-        backgroundColor: '#F4F3ED',
+        backgroundColor: 'white',
         margin: 20
     },
+    container: {
+        backgroundColor: 'whitesmoke',
+        height: "100vh"
+    },
     title: {
-        color: theme.green.darker,
+        color: theme.green.dark,
         fontSize: 18
     },
     textbody: {
@@ -28,7 +32,7 @@ const style = (theme) => ({
     selectBtn: {
         backgroundColor: theme.green.darkest,
         color: theme.pale,
-        marginTop: 20,
+        marginTop: 0,
         marginBottom: 10,
         padding: 7,
         paddingLeft: 25,
@@ -46,6 +50,16 @@ const style = (theme) => ({
         backgroundColor: '#F4F3ED',
         margin: 20,
         minHeight: 250
+    },
+    card: {
+        paddingTop: 20,
+        paddingBottom: 20,
+        // paddingLeft: 10,
+        // paddingRight: 10
+    },
+    grid: {
+        paddingLeft: 20,
+        paddingRight: 20
     }
 
 

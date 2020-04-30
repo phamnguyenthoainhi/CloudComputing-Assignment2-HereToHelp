@@ -69,7 +69,9 @@ class Tasks extends Component {
 
                 (skeleton)
                          : 
-                 (<Grid container spacing={3}>
+                 (
+                <div className={classes.container}>
+                 <Grid container spacing={4} className={classes.grid} >
                       { 
                              (this.state.tasks !== undefined && this.state.tasks.length > 0) ?
 
@@ -113,6 +115,7 @@ class Tasks extends Component {
                      null
                      }
                  </Grid>
+                 </div>
                  )
                  }
                  

@@ -91,20 +91,20 @@ class ProblemForm extends Component {
             phone: this.state.phone,
             email: this.state.email,
         };
-        // console.log(JSON.stringify(problem))
+        
         this.props.registerProblem(problem);
 
     }
     
 
     render() {
-        console.log(this.state.loadingProblem)
+        
         const {classes} = this.props; 
         return (
             <div style={{textAlign: "center"}}>
                 <img src="images/a.jpg" width="20%" height="20%" alt="Logo" style={{paddingTop :"10px"}}/>
 
-                <form className={classes.form} autoComplete="off">
+                <form className={classes.form} autoComplete="off" onSubmit={(e) => this.onSubmit(e)}>
                     
                     <Typography variant="h3" gutterBottom className={classes.tittle}>
                         Tell Us Your Problem
@@ -222,7 +222,7 @@ class ProblemForm extends Component {
                     {this.state.loadingProblem ? 
                     (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
                     : (
-                        <Button type='submit' className={classes.button} onClick={(e) => this.onSubmit(e)}> Submit</Button>
+                        <Button type='submit' className={classes.button} > Submit</Button>
                     )
                 }
 

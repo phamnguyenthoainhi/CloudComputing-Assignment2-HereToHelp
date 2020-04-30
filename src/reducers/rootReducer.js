@@ -9,5 +9,6 @@ export default combineReducers({
     successTask: UserReducer,
     loadingTasks: TaskReducer,
     taskReducer: TaskReducer,
+    userReducer: UserReducer
 
 })

@@ -73,6 +73,24 @@ const style = (theme) => ({
         }
         
     },
+    successbutton:{
+        
+        
+        backgroundColor: theme.blue.darker,
+        color: theme.orange.dark,
+        marginTop: 20,
+        marginBottom: 10,
+        padding: 10,
+        paddingLeft: 25,
+        paddingRight: 25,
+        fontSize: "14px",
+        borderRadius: theme.button.radius,
+        '&:hover':{
+            backgroundColor: theme.blue.darkest,
+            color: theme.orange.darker
+        }
+        
+    },
     login: {
        
         color: theme.green.darkest,

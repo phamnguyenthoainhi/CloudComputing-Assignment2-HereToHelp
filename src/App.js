@@ -16,6 +16,8 @@ import Login from './components/Login/Login';
 import Tasks from './components/Tasks/AllTasks/Tasks';
 import VolunteerTasks from './components/Tasks/VolunteerTasks/VolunteerTasks';
 import TaskDetails from './components/Tasks/TaskDetails/TaskDetails';
+import AdminVerify from './components/Admin/AdminVerify';
+import TaskBoard from './components/Tasks/TaskBoard/TaskBoard.js'
 import {getTasks} from './actions/volunteers/VolunteeerActions';
 
 class App extends Component {
@@ -78,6 +80,7 @@ componentDidUpdate(prevProps) {
                 <Route exact path={'/login'} render={(props) => <Login {...props} />} />
                 <Route exact path={'/allTasks'} render={(props) => <Tasks {...props} />} />
                 <Route exact path={'/myTasks'} render={(props) => <VolunteerTasks {...props} />} />
+                <Route exact path={'/taskboard'} render={(props) => <TaskBoard {...props} />} />
                 <Route exact path={`/`+IdPath} render={(props) => <TaskDetails 
                 {...props} 
                 task = {task}
@@ -85,6 +88,8 @@ componentDidUpdate(prevProps) {
 
               
                 />} />
+                <Route exact path={'/admin'} render={(props) => <AdminVerify {...props} />} />
+
 
 
                 </div>

@@ -35,13 +35,24 @@ class ProblemSuccess extends Component {
                 loadingTask: this.props.loadingTask
             })
         }
-        if (this.props.successTask !== prevProps.successTask && this.props.successTask === true) {
-            console.log('success')
+        if (this.props.successTask !== prevProps.successTask && this.props.successTask === true && this.props.loadingTask === false) {
+            
             this.setState({
                 successTask: this.props.successTask
             })
+            
+            setTimeout(() => this.success(this.props), 5000);
+                
+            
+        }
+        
+    }
+    success(props) {
+        if (props !== undefined && props.history !== undefined) {
+            props.history.push("/") 
         }
     }
+    
     
  
 

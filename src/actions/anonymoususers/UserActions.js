@@ -11,6 +11,45 @@ import {
 
 } from '../actionTypes';
 
+export const registerVolunteer = (volunteer) => dispatch => {
+    dispatch({
+        type: REGISTER_ACCOUNT_LOADING
+    })
+    fetch('http://localhost:8080/registerAccount', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+                'Content-type': 'application/json'
+        },
+        body: JSON.stringify(volunteer)
+    })
+    .then((res) => {
+        console.log(res.status)
+         if(res.status === 200) {
+             dispatch({
+                 type: REGISTER_ACCOUNT_SUCCESS,
+                 payload: true
+             })
+ 
+             
+         } 
+        if (res.status === 406) {
+            dispatch({
+                type: REGISTER_ACCOUNT,
+                payload: "Email is not in correct format"
+            })
+
+        }
+        if (res.status === 500) {
+            dispatch({
+                type: REGISTER_ACCOUNT,
+                payload: "Email has already registered. Please log in"
+            })
+
+        }
+     })
+
+}
 export const registerProblem = (problem) => dispatch => {
     dispatch({
         type: REGISTER_PROBLEM_LOADING
@@ -151,5 +190,7 @@ export const createTask = (task) => dispatch => {
      })
 
 }
+
+
 
 

@@ -14,10 +14,10 @@ const initialState = {
     successProblem: false,
     loadingTask: false,
     successTask: false,
+    loadingRegisterAccount: false,
+    successRegisterAccount: false,
+    registerMessage: ''
     
-
-
-
 }
 
 export default function (state = initialState, action) {
@@ -42,7 +42,7 @@ export default function (state = initialState, action) {
             }
 
 
-            case REGISTER_TASK_LOADING: 
+        case REGISTER_TASK_LOADING: 
 
             return {
                 ...state,
@@ -53,6 +53,27 @@ export default function (state = initialState, action) {
                 ...state,
                 successTask: action.payload,
                 loadingTask: false
+            }
+
+
+
+        case REGISTER_ACCOUNT: 
+            return {
+                ...state,
+                registerMessage: action.payload,
+                loadingRegisterAccount: false
+            }
+            case REGISTER_ACCOUNT_LOADING: 
+
+            return {
+                ...state,
+                loadingRegisterAccount: true
+            }
+        case REGISTER_ACCOUNT_SUCCESS:
+            return {
+                ...state,
+                successRegisterAccount: action.payload,
+                loadingRegisterAccount: false
             }
             
     

@@ -7,7 +7,7 @@ class Footer extends Component {
     render() {
         const {classes} = this.props; 
         return (
-            <div class="footer">
+            <div className="footer">
                 <Grid container spacing={2} className= {classes.grid}>
                     <Grid item xs>
                         <Grid container spacing={3}>

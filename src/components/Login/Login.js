@@ -7,12 +7,24 @@ class Login extends Component {
         const {classes} = this.props
         return (
             <div className={classes.container} >
-                <img src="images/pattern.png" width="100%" height="100%" alt="Logo" style={{paddingTop :"0px"}}/>
+               
                
 
             </div>
         )
     }
 }
-export default connect(null)(withStyles(style)(Login));
+const mapDispatchToProps = dispatch => ({
+    // registerVolunteer: (volunteer) => dispatch (registerVolunteer(volunteer))
+    
+
+  
+})
+const mapStateToProps = state => ({
+    // registerMessage: state.userReducer.registerMessage,
+    // loadingRegisterAccount: state.userReducer.loadingRegisterAccount,
+    // successRegisterAccount: state.userReducer.successRegisterAccount,
+ 
+});
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Login));
 
