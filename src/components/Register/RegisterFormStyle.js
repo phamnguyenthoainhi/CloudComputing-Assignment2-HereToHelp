@@ -1,5 +1,6 @@
 const style = (theme) => ({
     grid: {
+        fontFamily: theme.font,
     },
     left: {
         // backgroundColor: theme.orange.light,
@@ -57,7 +58,7 @@ const style = (theme) => ({
     },
     button:{
         
-        
+        fontFamily: theme.font,
         backgroundColor: theme.green.darker,
         color: theme.pale,
         marginTop: 20,
@@ -78,6 +79,7 @@ const style = (theme) => ({
         
         backgroundColor: theme.blue.darker,
         color: theme.orange.dark,
+        fontFamily: theme.font,
         marginTop: 20,
         marginBottom: 10,
         padding: 10,
@@ -107,13 +109,14 @@ const style = (theme) => ({
             textTransform: 'none',
             backgroundColor: theme.pale,
             borderRadius: theme.button.radius,
-
+            color: theme.green.darker
             // color: theme.orange.light
         }
     },
     text: {
         fontSize: "14px",
-        color: theme.green.dark
+        color: theme.green.dark,
+        fontFamily: theme.font,
     }
     
 })

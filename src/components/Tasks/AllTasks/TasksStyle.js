@@ -4,7 +4,9 @@ const style = (theme) => ({
         fontFamlily: theme.font,
        
         backgroundColor: 'white',
-        margin: 20
+        margin: 20,
+        paddingTop: 20,
+        paddingBottom: 20,
     },
     container: {
         backgroundColor: 'whitesmoke',
@@ -12,17 +14,21 @@ const style = (theme) => ({
     },
     title: {
         color: theme.green.dark,
-        fontSize: 18
+        fontSize: 18,
+        fontFamily: theme.font,
     },
     textbody: {
         
-        fontSize: 14
+        fontSize: 14,
+        fontFamily: theme.font,
     },
     description: {
-        marginTop: 15
+        marginTop: 15,
+        fontFamily: theme.font,
     },
     info: {
-        marginBottom: 15
+        marginBottom: 15,
+        fontFamily: theme.font,
     },
     action : {
         display: "flex",
@@ -38,6 +44,7 @@ const style = (theme) => ({
         paddingLeft: 25,
         paddingRight: 25,
         fontSize: "12px",
+        fontFamily: theme.font,
         borderRadius: theme.button.radius,
         '&:hover':{
             backgroundColor: theme.green.darker,
@@ -48,22 +55,13 @@ const style = (theme) => ({
         margin: 20,
         minWidth: 300,
         backgroundColor: '#F4F3ED',
-        margin: 20,
+        
         minHeight: 250
-    },
-    card: {
-        paddingTop: 20,
-        paddingBottom: 20,
-        // paddingLeft: 10,
-        // paddingRight: 10
     },
     grid: {
         paddingLeft: 20,
         paddingRight: 20
     }
-
-
-      
-      
+    
 })
 export default style;

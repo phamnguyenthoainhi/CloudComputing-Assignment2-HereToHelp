@@ -12,10 +12,42 @@ import {Link} from "react-router-dom";
 
 class HomePage extends Component {
 
+    logout = () => {
+        window.sessionStorage.removeItem('role');
+        window.location.reload();
+    }
     render() {
         const {classes} = this.props; 
+        
         return (
             <div>
+                 {(window.sessionStorage.getItem('role') !== null && window.sessionStorage.getItem('role') !== undefined) ? 
+                 (<div className={classes.success} style={{display: 'block'}}>
+                <Button className={classes.logout} onClick={() => this.logout()}>Logout</Button>
+                <br/>
+                 <Typography className={classes.successtext}>Hello again!</Typography>
+                 {window.sessionStorage.getItem('role') === 'USER' ? 
+                 (
+                     <div>
+                         <Button className={classes.successbtn} component={Link} to='/allTasks'>All Tasks</Button>
+                        <Button className={classes.successbtn} component={Link} to='/taskboard'>My Task Board</Button>
+                     </div>
+                     
+                 ) 
+                 : 
+                 (
+                     <div>
+                         <Button className={classes.successbtn} component={Link} to='/allTasks'>All Tasks</Button>                     
+                        <Button className={classes.successbtn} component={Link} to='/admin'>Admin Task Board</Button>
+                     </div>
+                     
+                     )
+                }
+                 
+             </div>):null
+
+                } 
+                
                 <Navbar/>
                 <div className ={classes.contenthome}>
                     <Grid container spacing={0} className={classes.grid}>

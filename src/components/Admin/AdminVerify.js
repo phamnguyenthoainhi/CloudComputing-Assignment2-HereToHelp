@@ -12,109 +12,275 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
+import {getTasksAdmin, takeTask} from '../../actions/volunteers/VolunteeerActions'
+import { Skeleton } from '@material-ui/lab';
+import {Link} from "react-router-dom";
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+const ColorCircularProgress = withStyles({
+    root: {
+      color: '#E3DEAC'
+      
+    },
+  })(CircularProgress);
+
 class AdminVerify extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            tasksadmin: [],
+            loadingTakeTask: false,
+            successTakeTask:false,
+            filterTaskAdmin: [],
+            loadingTaskAdmin: false,
+            successTaskAdmin: false
+        }
+    }
+    componentDidMount() {
+        this.props.getTasksAdmin()
+        
+    }
+
+    componentDidUpdate(prevProps) {
+        if(this.props.tasksadmin !== prevProps.tasksadmin) {
+            this.setState({
+                tasksadmin: this.props.tasksadmin,
+                filterTaskAdmin: this.props.tasksadmin.filter((t) => t.status === 'Verifying')
+            })
+        } if (this.props.loadingTaskAdmin !== prevProps.loadingTaskAdmin) {
+            this.setState({
+                loadingTaskAdmin: this.props.loadingTaskAdmin
+            })
+        }
+        if(this.props.loadingTakeTask !== prevProps.loadingTakeTask) {
+            this.setState({
+                loadingTakeTask: this.props.loadingTakeTask,
+                
+            })
+        }
+        if(this.props.successTakeTask !== prevProps.successTakeTask && this.props.successTakeTask === true) {
+            this.setState({
+                successTakeTask: this.props.successTakeTask,
+                
+            })
+            this.props.getTasksAdmin();
+            
+        }
+    }
+
+    verifyTask = (id, problem, volunteer) => {
+        const task = {
+            id : id,
+            problem: problem,
+            status: 'Done',
+            volunteer: volunteer
+        }
+        this.props.takeTask(task)
+    }
+
+    verifyingList = () => {
+        
+        var verifyingList = this.state.tasksadmin.filter((t) => t.status === 'Verifying')
+        this.setState({
+            filterTaskAdmin: verifyingList
+        })
+        
+        // if (document.getElementById("verifybtn").style.display !== "block") {
+        //     document.getElementById("verifybtn").style.display = "block";
+        // } else {
+        //     document.getElementById("verifybtn").style.display = "none";
+        // }
+        // document.getElementById("verifybtn").style.display = "block";
+        document.getElementById("verifybtn").style.display = "block";
+        document.getElementById("verify").style.borderBottom = "2px solid #D4CE96"
+        document.getElementById("resolve").style.borderBottom = "0px"
+        
+        
+    }
+    resolvedList = () => {
+        var resolvedList = this.state.tasksadmin.filter((t) => t.status === 'Done')
+        this.setState({
+            filterTaskAdmin: resolvedList
+        })
+        
+        
+        document.getElementById("resolve").style.borderBottom = "2px solid #D4CE96";
+        document.getElementById("verify").style.borderBottom = "0px";
+        
+    }
+
+    showButton = () => {
+        
+            document.getElementById("verifybtn").style.display = "block";
+        
+            
+        
+    }
+    hideButton = () => {
+        var button = document.getElementById("verifybtn")
+        button.onClick = function() {
+            button.style.display = "none";
+
+        }
+    }
+
     render() {
         const {classes} = this.props;
+        console.log(this.state.loadingTaskAdmin)
         return (
-            <div className= {classes.container}>
-                <Card className={classes.root}>
-                    <CardContent>
-                        
-                        <Typography className={classes.hello}>Hello Admin!</Typography>
-                        <Typography className={classes.welcome}>Welcome back to Verify Volunteer Tasks</Typography>
-                           
-                        
-                    </CardContent>
-                </Card>
+            <div className={classes.box}>
+                <div><Button className={classes.home} component={Link} to = {'/'}>Home</Button></div>
+                <div className= {classes.container} style={{textAlign: "center"}}>
+                
                 <div>
-                        <table class="table">
+                    <Typography className={classes.hello}>Admin Task Board</Typography>
+                </div>
+                
+                
+                <div className="btn-group" role="group" >
+                        <button id ='verify' type="button" className={classes.btngroup} style={{borderBottom: "2px solid #D4CE96"}}
+                        onClick={() => {this.verifyingList(); this.showButton()}}
+                        >Verifying</button><span style={{color: "#D4CE96"}}>|</span>
+                        <button id = 'resolve' type="button" className={classes.btngroup} 
+                        onClick={() => {this.resolvedList(); this.hideButton()}}
+                        >Resolved</button>
+                </div>
+                
+                <div className={classes.table}>
+
+                        <table className="table table-borderless">
                                     <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">
-
-                                        
+                                        <th style={{width: '10%', textAlign: 'center', color: "#51617D"}}>#</th>
+                                        <th style={{width: '30%', textAlign: 'center', color: "#51617D"}}>Problem Information
                                         </th>
-                                        <th scope="col">Problem Description</th>
-                                        <th scope="col">Handle</th>
+                                        <th style={{width: '40%', textAlign: 'center', color: "#51617D"}}>Problem Description</th>
+                                        <th style={{width: '20%', textAlign: 'center', color: "#51617D"}}></th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th scope="row"><Avatar>
-                                                        1
-                                                    </Avatar></th>
-                                        <td><List >
-                                                <ListItem>
-                                                    <ListItemAvatar>
-                                                    <Avatar>
-                                                        {/* <ImageIcon /> */}
-                                                    </Avatar>
-                                                    </ListItemAvatar>
-                                                    <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-                                                </ListItem>
-                                                {/* <Divider variant="inset" component="li" /> */}
-                                                <ListItem>
-                                                    <ListItemAvatar>
-                                                    <Avatar>
-                                                        {/* <WorkIcon /> */}
-                                                    </Avatar>
-                                                    </ListItemAvatar>
-                                                    <ListItemText primary="Work" secondary="Jan 7, 2014" />
-                                                </ListItem>
-                                                {/* <Divider variant="inset" component="li" /> */}
+                                    
+                                    <tbody className={classes.tbody}>
+                                        {this.state.loadingTaskAdmin ? 
+                                        (
+                                        <tr>
+                                            <th scope="row"><Skeleton variant="rect" animation="wave"height={70} /></th>
+                                                    <td><Skeleton variant="rect" animation="wave"height={70}/></td>
+                                                    <td><Skeleton variant="rect" animation="wave"height={70}/></td>
+                                                    <td><Skeleton variant="rect" animation="wave"height={70}/></td>
+                                        </tr>
+                                                 
+                                        )
+                                        : 
+                                        (
+                                            this.state.filterTaskAdmin.map((task) => 
+                                            <tr key={task.id}>
+                                            
+                                            <th scope="row" className={classes.row} >
+                                                <div>
+    
+                                                            <Avatar className={classes.id}>
+                                                                {task.id}
+                                                            </Avatar>
+                                                </div>
+                                            </th>
+                                            <td >
+                                            <List>
+                                                    <ListItem>
+                                                        <ListItemAvatar>
+                                                        
+                                                        </ListItemAvatar>
+                                                        <ListItemText primary="Address" secondary={task.problem.location} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}} />
+                                                    </ListItem>
+                                                    
+                                                    <ListItem>
+                                            <ListItemAvatar>
+                                            
+                                            </ListItemAvatar>
+                                            <ListItemText primary="Name" secondary={task.problem.ownerName} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
+                                            
+                                        </ListItem>
+                                        <ListItem>
+                                        <ListItemAvatar>
+                                          
+                                        </ListItemAvatar>
+                                           
+                                            <ListItemText primary="Birthday" secondary= {task.problem.ownerBirthday} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}} />
+                                            
+                                        </ListItem>
+                                        <ListItem>
+                                        <ListItemAvatar>
+                                            
+                                        </ListItemAvatar>
+                                            
+                                            <ListItemText primary="Gender" secondary= {task.problem.ownerGender} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
+                                        </ListItem>
+                                        
+                                        <ListItem>
+                                            <ListItemAvatar>
+                                            
+                                            </ListItemAvatar>
+                                            
+                                            <ListItemText primary="Phone Number" secondary= {task.problem.phone} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemAvatar>
+                                            
+                                            </ListItemAvatar>
+                                            <ListItemText primary="Email" secondary={task.problem.email} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
+                                            
+                                        </ListItem>
+                                                    
+                                                    
+                                             </List></td>
+                                            <td >
+                                            <List>
+                                                    <ListItem>
+                                                        <ListItemAvatar>
+                                                        
+                                                        </ListItemAvatar>
+                                                        <ListItemText secondary={task.problem.description} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}} />
+                                                    </ListItem>
+                                                    
+                                                    
+                                            </List>
                                                 
-                                         </List></td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"><Avatar>
-                                                        1
-                                                    </Avatar></th>
-                                        <td><List >
-                                                <ListItem>
-                                                    <ListItemAvatar>
-                                                    <Avatar>
-                                                        {/* <ImageIcon /> */}
-                                                    </Avatar>
-                                                    </ListItemAvatar>
-                                                    <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-                                                </ListItem>
-                                                {/* <Divider variant="inset" component="li" /> */}
-                                                <ListItem>
-                                                    <ListItemAvatar>
-                                                    <Avatar>
-                                                        {/* <WorkIcon /> */}
-                                                    </Avatar>
-                                                    </ListItemAvatar>
-                                                    <ListItemText primary="Work" secondary="Jan 7, 2014" />
-                                                </ListItem>
-                                                {/* <Divider variant="inset" component="li" /> */}
+                                                </td>
+                                                <td style={{textAlign: "center"}}>
+                                                    {this.state.loadingTakeTask? (<ColorCircularProgress />):
                                                 
-                                         </List></td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
+                                                <Button type='button' id ='verifybtn'  className={classes.completebtn} onClick= {(id, problem, volunteer) => this.verifyTask(task.id, task.problem, task.volunteer)}>Verify</Button>
+                                                    
+                                                    }
+                                                </td>
+                                        </tr>
+                                            
+                                            
+                                            )) }
+                                        
+                                    
+                                    
 
                                     </tbody>
                         </table>
                 </div>
             </div>
+            </div>
         )
     }
 }
 const mapDispatchToProps = dispatch => ({
-    // registerProblem: (problem) => dispatch(registerProblem(problem)),
-
+    getTasksAdmin: () => dispatch(getTasksAdmin()),
+    takeTask: (task) => dispatch(takeTask(task))
     
 
   
 })
 const mapStateToProps = state => ({
-    
-    // loadingProblem: state.loadingProblem.loadingProblem,
-    // successProblem: state.successProblem.successProblem
+    loadingTakeTask: state.taskReducer.loadingTakeTask,
+    successTakeTask: state.taskReducer.successTakeTask,
+    loadingTaskAdmin: state.taskReducer.loadingTaskAdmin,
+    successTaskAdmin: state.taskReducer.successTaskAdmin,
+    tasksadmin: state.taskReducer.tasksadmin
    
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(AdminVerify));

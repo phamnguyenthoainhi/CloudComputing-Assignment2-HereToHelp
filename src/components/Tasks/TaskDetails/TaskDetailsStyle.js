@@ -7,6 +7,7 @@ const style = (theme) => ({
         textAlign: 'center',
         font: theme.font,
         backgroundColor: theme.blue.darkest,
+        fontFamily: theme.font,
         
         
 
@@ -22,6 +23,7 @@ const style = (theme) => ({
         color: theme.blue.light,
         fontFamily: theme.font,
         fontSize: 15,
+        
     },
     left: {
         
@@ -32,23 +34,25 @@ const style = (theme) => ({
         font: theme.font,
         fontSize: 18,
         marginTop: 30,
-        marginBottom: 30
+        marginBottom: 30,
+        fontFamily: theme.font,
         
       },
       avatar: {
           backgroundColor: theme.pale,
           padding: 2
           
-      }
-      ,
+      },
      
       listItemText1: {
         font: theme.font,
         fontSize: 16,
+        fontFamily: theme.font,
       },
       listItemText2: {
         font: theme.font,
         fontSize: 14,
+        fontFamily: theme.font,
       },
       btnContainer: {
         display: "flex",
@@ -64,6 +68,7 @@ const style = (theme) => ({
         padding: 7,
         paddingLeft: 25,
         paddingRight: 25,
+        fontFamily: theme.font,
        
         fontSize: "12px",
         borderRadius: theme.button.radius,
@@ -71,7 +76,8 @@ const style = (theme) => ({
             backgroundColor: theme.green.darker,
             color: theme.orange.light
         }
-      }
+      },
+      
 
 })
 export default style;

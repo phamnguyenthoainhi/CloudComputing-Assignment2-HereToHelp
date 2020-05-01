@@ -24,7 +24,7 @@ export const registerVolunteer = (volunteer) => dispatch => {
         body: JSON.stringify(volunteer)
     })
     .then((res) => {
-        console.log(res.status)
+        
          if(res.status === 200) {
              dispatch({
                  type: REGISTER_ACCOUNT_SUCCESS,
@@ -49,6 +49,96 @@ export const registerVolunteer = (volunteer) => dispatch => {
         }
      })
 
+}
+
+export const getUserbyEmail = (email) => dispatch => {
+    console.log("Hello")
+    fetch(`http://localhost:8080/getVolunteerByEmail?email=${email}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+        },
+        
+    })
+    .then((res) => res.json())
+
+    .then((volunteer) => {
+        console.log(volunteer)
+        sessionStorage.setItem("id", btoa(volunteer.id))
+    }
+    )
+
+
+}
+
+export const login = (account) => dispatch => {
+    dispatch({
+        type: LOGIN_ACCOUNT_LOADING
+    })
+    fetch('http://localhost:8080/login', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(account)
+    })
+    .then((res) => {
+         if(res.status === 302) {
+            res.json().then(function(data) {
+                sessionStorage.setItem("role", data.role)
+                
+                
+                dispatch({
+                    type: LOGIN_ACCOUNT_SUCCESS,
+                    payload: true 
+                })
+                fetch(`http://localhost:8080/getVolunteerByEmail?email=${data.email}`, {
+                    
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-type': 'application/json'
+                        },
+                        
+                    })
+                    .then((res) => 
+                    { if (res.status === 200) {
+                        res.json().then(function(data) {
+                            sessionStorage.setItem("id", btoa(data.id))
+                        })
+                    }
+                   
+                })
+
+            })   
+        } 
+
+        if (res.status === 401) {
+            dispatch({
+                type: LOGIN_ACCOUNT,
+                payload: {
+                    code: 'email',
+                    message: "Email is either not register or not in correct format. Please try again"
+                }
+                
+            })
+
+        }
+        if (res.status === 404) {
+            
+            dispatch({
+                type: LOGIN_ACCOUNT,
+                payload: {
+                    code: "password",
+                    message: "Password is incorrect. Please try again"
+                }
+                
+            })
+
+        }
+     })
 }
 export const registerProblem = (problem) => dispatch => {
     dispatch({
@@ -82,7 +172,7 @@ export const registerProblem = (problem) => dispatch => {
                 type: REGISTER_PROBLEM_SUCCESS,
                 payload: false
             })
-            // return null;
+            
         }
     })
 }
@@ -137,28 +227,30 @@ export const getAProblem = (id) => dispatch => {
         }
     })
 }
-export const getTasks = () => dispatch => {
-    dispatch({
-        type: GET_TASKS_LOADING
-    })
-    fetch('http://localhost:8080/tasks', {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json'
-        },
+// export const getTasks = () => dispatch => {
+//     console.log("get tasks")
+//     dispatch({
+//         type: GET_TASKS_LOADING
+//     })
+//     fetch('http://localhost:8080/tasks', {
+//         method: 'GET',
+//         headers: {
+//             'Accept': 'application/json',
+//             'Content-type': 'application/json'
+//         },
         
-    })
-    .then((res) =>  {
-        if(res.status === 200) {
-            dispatch({
-                type: GET_TASKS_SUCCESS,
-                payload: true
-            })
-        }
-    })
+//     })
+//     .then((res) =>  {
+//         if(res.status === 200) {
+//             console.log("2000")
+//             dispatch({
+//                 type: GET_TASKS_SUCCESS,
+//                 payload: true
+//             })
+//         }
+//     })
 
-}
+// }
 
 export const createTask = (task) => dispatch => {
     dispatch({

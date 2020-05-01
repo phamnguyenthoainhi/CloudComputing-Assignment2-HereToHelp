@@ -29,12 +29,22 @@ class TaskDetails extends Component {
         }
     }
     takeTask() {
-        const task = {
-            id : this.props.task.id,
-            problem: this.props.task.problem,
-            status: 'Starting'
+
+        if (sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== undefined) {
+            let id = atob(sessionStorage.getItem("id"))
+            const task = {
+                id : this.props.task.id,
+                problem: this.props.task.problem,
+                status: 'Starting',
+                volunteer: {
+                    id: id
+                }
+            }
+            this.props.takeTask(task)
+        } else {
+            console.log("log in again")
         }
-        this.props.takeTask(task)
+        
     }
     componentDidUpdate(prevProps) {
         if (this.props.loading !== prevProps.loading) {

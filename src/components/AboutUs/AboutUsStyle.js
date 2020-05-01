@@ -17,16 +17,19 @@ const style = (theme) => ({
         position: 'relative'
     },
     content: {
-        paddingTop: 270
+        paddingTop: 270,
+        fontFamily: theme.font,
     },
     name: {
        fontSize: 23,
        color: theme.blue.dark,
-       padding: 20
+       padding: 20,
+       fontFamily: theme.font,
     },
     text: {
         fontSize: 19,
-        paddingBottom: 10
+        paddingBottom: 10,
+        fontFamily: theme.font,
     }
 })
 export  default style;

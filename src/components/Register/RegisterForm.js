@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import style from './RegisterFormStyle';
 import {connect} from 'react-redux';
 import { withStyles } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
+
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -11,7 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {registerVolunteer} from '../../actions/anonymoususers/UserActions';
 import DoneIcon from '@material-ui/icons/Done';
-
+import {Link} from "react-router-dom";
 const ColorCircularProgress = withStyles({
     root: {
       color: '#E3DEAC'
@@ -31,7 +31,7 @@ class RegisterForm extends Component {
             gender: '',
             phone: '',
             birthday : '',
-            registerMessage:''
+            
             
         }
     }
@@ -46,6 +46,7 @@ class RegisterForm extends Component {
             birthday : this.state.birthday,
 	        role: "USER"
         }
+        
         this.props.registerVolunteer(volunteer)
     } 
     componentDidUpdate(prevProps) {
@@ -62,6 +63,7 @@ class RegisterForm extends Component {
         if (this.props.successRegisterAccount !== prevProps.successRegisterAccount) {
             this.setState({
                 success: this.props.successRegisterAccount,
+                registerMessage: ''
                 // name: '',
                 // email: '',
                 // password: '',
@@ -89,60 +91,7 @@ class RegisterForm extends Component {
         return (
             
             <div className={classes.bg} style ={{backgroundImage: "src='images/Untitled.jpg'"}}>
-                {/* <Grid container spacing={0} classsName={classes.grid}>
-                    <Grid item xs={6} className={classes.left}>
-                        <img className={classes.img} src="images/a.jpg" width="70%"  alt="Volunteer"/>
-                        
-                    </Grid>
-                    <Grid  item xs={6} className={classes.right}>
-                        <form className={classes.form}>
-                            <Typography variant="h4" gutterBottom className={classes.tittle}>
-                            Join Our Volunteer Communnity
-                            </Typography>
-                            <TextField className={classes.input}
-                                InputProps={{ style: { fontSize: 16 } }}
-                                InputLabelProps={{ style: { fontSize: 14 } }}
-                                fullWidth label="Full Name" required/>
-                            
-                                <TextField className={classes.input}
-                                InputProps={{ style: { fontSize: 16 } }}
-                                InputLabelProps={{ style: { fontSize: 14 } }}
-                                fullWidth label="Gender" required/>
-                                
-                                <TextField className={classes.input} type='number'
-                                InputProps={{ style: { fontSize: 16 } }}
-                                InputLabelProps={{ style: { fontSize: 14 } }}
-                                fullWidth label="Phone Number" required/>
-                                
-                                <TextField className={classes.input}
-                                InputProps={{ style: { fontSize: 16 } }}
-                                InputLabelProps={{ style: { fontSize: 14 } }}
-                                fullWidth label="Email" required/>
-                                
-                                <TextField className={classes.input}
-                                InputProps={{ style: { fontSize: 16 } }}
-                                InputLabelProps={{ style: { fontSize: 14 } }}
-                                fullWidth label="Password" required type='password' />
-                                
-                            
-                                
-                            
-                            <Typography gutterBottom className={classes.text}>
-                            If you've already have an account. Login here
-                            </Typography>
-                            <Button type='submit' className={classes.button}>Register</Button>
-                        </form>
-                    </Grid>
-                </Grid> */}
-
-
-
-
-            {/* <Grid container spacing={0} classsName={classes.grid}>
-                    <Grid item xs={6} className={classes.left}>
-                        <img className={classes.img} src="images/a.jpg" width="70%"  alt="Volunteer"/>
-                        
-                    </Grid> */}
+                
 
                     <div className={classes.right} style={{textAlign: "center"}}>
                         <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
@@ -152,17 +101,19 @@ class RegisterForm extends Component {
                             <TextField className={classes.input}
                                 name='name'
                                 value={this.state.name}
-
+                                FormHelperTextProps={{style: {fontSize: 10, color: '#DE9D66', fontFamily: "'Poppins', sans-serif;"}}}
                                 InputProps={{ style: { fontSize: 16 } }}
                                 InputLabelProps={{ style: { fontSize: 14 } }}
                                 fullWidth label="Full Name" 
                                 onChange= {(e) => this.onChange(e)}
+                                
                                 required/>
                             
                             <FormControl className={classes.formControl} fullWidth>
                                    
                                    <TextField type ='text' id="select" label ='Your Gender' value ={this.state.gender} select className ={classes.input} name ='gender'
                                     onChange= {(e) => this.onChange(e)}
+
                                    InputProps={{ style: { fontSize: 16 } }}
                                     InputLabelProps={{ style: { fontSize: 14 } }}
                                    >
@@ -200,16 +151,19 @@ class RegisterForm extends Component {
                                 name='phone'
                                 value ={this.state.phone}
                                 onChange= {(e) => this.onChange(e)}
+                                FormHelperTextProps={{style: {fontSize: 10, color: '#DE9D66', fontFamily: "'Poppins', sans-serif"}}}
                                 />
                                 
                                 <TextField className={classes.input}
                                 InputProps={{ style: { fontSize: 16 } }}
                                 InputLabelProps={{ style: { fontSize: 14 } }}
                                 fullWidth label="Email" required
+                                FormHelperTextProps={{style: {fontSize: 10, color: '#DE9D66', fontFamily: "'Poppins', sans-serif"}}}
                                 name='email'
                                 value={this.state.email}
                                 onChange= {(e) => this.onChange(e)}
                                 helperText={this.state.registerMessage}
+                                
                                 />
                                 
                                 <TextField className={classes.input}
@@ -217,13 +171,14 @@ class RegisterForm extends Component {
                                 InputLabelProps={{ style: { fontSize: 14 } }}
                                 fullWidth label="Password" required type='password'
                                 name='password'
+                                FormHelperTextProps={{style: {fontSize: 10, color: '#DE9D66', fontFamily: "'Poppins', sans-serif"}}}
                                 value={this.state.password}
                                 onChange= {(e) => this.onChange(e)}
                                  />
                                 
                             <Typography gutterBottom className={classes.text}>
                             If you've already have an account. 
-                            <Button type='button' className={classes.login}>Login here</Button>
+                            <Button type='button' className={classes.login} component={Link} to='/login'>Login here</Button>
                             </Typography>
                             {this.state.loading? (<ColorCircularProgress />   ): 
 
@@ -233,7 +188,7 @@ class RegisterForm extends Component {
                             }
                         </form>
                     </div>
-                {/* </Grid> */}
+               
             </div>
         )
     }

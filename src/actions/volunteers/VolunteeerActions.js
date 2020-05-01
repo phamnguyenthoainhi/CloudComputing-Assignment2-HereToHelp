@@ -1,5 +1,6 @@
 import {
     GET_TASKS_LOADING,GET_TASKS_SUCCESS,
+    GET_MYTASKS_LOADING, GET_MYTASKS_SUCCESS,
     GET_TASKS_LOADING_ADMIN,GET_TASKS_SUCCESS_ADMIN,
     GET_TASKS_LOADING_VOLUNTEER,GET_TASKS_SUCCESS_VOLUNTEER,
     TAKE_TASK_LOADING,TAKE_TASK_SUCCESS  ,
@@ -23,10 +24,14 @@ export const getTasks = () => dispatch => {
     })
     .then((res) => res.json())
     .then((tasks) => 
-    dispatch({
-        type: GET_TASKS_SUCCESS,
-        payload: tasks
-    })
+    {
+        
+        dispatch({
+            type: GET_TASKS_SUCCESS,
+            payload: tasks
+        })
+    }
+        
     )
     
 
@@ -36,7 +41,7 @@ export const getTasksAdmin = () => dispatch => {
     dispatch({
         type: GET_TASKS_LOADING_ADMIN
     })
-    fetch('http://localhost:8080/tasksbyStatus?status=Completing', {
+    fetch('http://localhost:8080/tasks', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -76,7 +81,33 @@ export const getTasksVolunteer = () => dispatch => {
     
 
 }
+
+export const getMyTasks = (id) => dispatch => {
+    
+    dispatch({
+        type: GET_MYTASKS_LOADING
+    })
+    fetch(`http://localhost:8080/tasksByVolunteer?v_id=${id}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+                'Content-type': 'application/json'
+        },
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        
+        dispatch({
+            type: GET_MYTASKS_SUCCESS,
+            payload: data
+        })
+    }
+        
+    )
+}
+
 export const takeTask = (task) => dispatch => {
+    
     dispatch({
         type: TAKE_TASK_LOADING
     })
@@ -103,6 +134,6 @@ export const takeTask = (task) => dispatch => {
                  payload: false
              })
          }
-     })
+    })
 }
 

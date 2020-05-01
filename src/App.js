@@ -50,6 +50,7 @@ componentDidUpdate(prevProps) {
 }
 
   render () {
+    
     const theme = createMuiTheme(themeFile);
       let path = window.location.pathname.replace("/", "");
   

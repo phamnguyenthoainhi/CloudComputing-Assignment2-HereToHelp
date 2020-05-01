@@ -75,9 +75,42 @@ const style = (theme) => ({
             backgroundColor: theme.green.darker,
             color: theme.orange.dark,
         },
-        '&:focuse': {
+        '&:focused': {
             textDecoration: 'none',
             oultine: 0
+        }
+    },
+    success: {
+        textAlign: 'center',
+        font: theme.font,
+        backgroundColor: theme.blue.darkest,
+        fontFamily: theme.font,
+    },
+    successtext: {
+        color: theme.pale,
+        fontFamily: theme.font,
+        fontSize: 17,
+        paddingTop: 20 
+    },
+    successbtn: {
+        paddingBottom: 20,
+        color: theme.blue.light,
+        fontFamily: theme.font,
+        fontSize: 15,
+        
+        '&:hover':{
+            
+            color: 'whitesmoke',
+        }
+    },
+    logout: {
+        color: theme.orange.darker,
+        fontSize: 14,
+        fontFamily: theme.font,
+        float: "right",
+        '&:hover':{
+            
+            color: theme.orange.darkest,
         }
     }
 

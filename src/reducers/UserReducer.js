@@ -12,11 +12,17 @@ const initialState = {
     problem: {},
     loadingProblem: false,
     successProblem: false,
+
     loadingTask: false,
     successTask: false,
+
     loadingRegisterAccount: false,
     successRegisterAccount: false,
-    registerMessage: ''
+    registerMessage: '',
+
+    loginMessage: {},
+    loadingLoginAccount: false,
+    loginSuccess: ""
     
 }
 
@@ -74,6 +80,28 @@ export default function (state = initialState, action) {
                 ...state,
                 successRegisterAccount: action.payload,
                 loadingRegisterAccount: false
+            }
+
+
+
+        case LOGIN_ACCOUNT: 
+        console.log(action.payload)
+            return {
+                ...state,
+                loadingLoginAccount:false,
+                loginMessage: action.payload
+            }
+        case LOGIN_ACCOUNT_LOADING: 
+
+            return {
+                ...state,
+                loadingLoginAccount: true
+            }
+        case LOGIN_ACCOUNT_SUCCESS:
+            return {
+                ...state,
+                loadingLoginAccount:false,
+                loginSuccess: action.payload
             }
             
     
