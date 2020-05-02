@@ -63,7 +63,7 @@ class TaskDetails extends Component {
         }
     }
     totaskboard() {
-        this.props.history.push('/');
+        this.props.history.push('/taskboard');
     }
 
     render() {

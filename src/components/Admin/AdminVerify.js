@@ -33,7 +33,8 @@ class AdminVerify extends Component {
             successTakeTask:false,
             filterTaskAdmin: [],
             loadingTaskAdmin: false,
-            successTaskAdmin: false
+            successTaskAdmin: false,
+            buttonShow: true
         }
     }
     componentDidMount() {
@@ -82,16 +83,11 @@ class AdminVerify extends Component {
         
         var verifyingList = this.state.tasksadmin.filter((t) => t.status === 'Verifying')
         this.setState({
-            filterTaskAdmin: verifyingList
+            filterTaskAdmin: verifyingList,
+            buttonShow: true
         })
         
-        // if (document.getElementById("verifybtn").style.display !== "block") {
-        //     document.getElementById("verifybtn").style.display = "block";
-        // } else {
-        //     document.getElementById("verifybtn").style.display = "none";
-        // }
-        // document.getElementById("verifybtn").style.display = "block";
-        document.getElementById("verifybtn").style.display = "block";
+      
         document.getElementById("verify").style.borderBottom = "2px solid #D4CE96"
         document.getElementById("resolve").style.borderBottom = "0px"
         
@@ -100,7 +96,8 @@ class AdminVerify extends Component {
     resolvedList = () => {
         var resolvedList = this.state.tasksadmin.filter((t) => t.status === 'Done')
         this.setState({
-            filterTaskAdmin: resolvedList
+            filterTaskAdmin: resolvedList,
+            buttonShow: false
         })
         
         
@@ -109,20 +106,7 @@ class AdminVerify extends Component {
         
     }
 
-    showButton = () => {
-        
-            document.getElementById("verifybtn").style.display = "block";
-        
-            
-        
-    }
-    hideButton = () => {
-        var button = document.getElementById("verifybtn")
-        button.onClick = function() {
-            button.style.display = "none";
-
-        }
-    }
+    
 
     render() {
         const {classes} = this.props;
@@ -139,10 +123,10 @@ class AdminVerify extends Component {
                 
                 <div className="btn-group" role="group" >
                         <button id ='verify' type="button" className={classes.btngroup} style={{borderBottom: "2px solid #D4CE96"}}
-                        onClick={() => {this.verifyingList(); this.showButton()}}
+                        onClick={() => this.verifyingList()}
                         >Verifying</button><span style={{color: "#D4CE96"}}>|</span>
                         <button id = 'resolve' type="button" className={classes.btngroup} 
-                        onClick={() => {this.resolvedList(); this.hideButton()}}
+                        onClick={() => this.resolvedList()}
                         >Resolved</button>
                 </div>
                 
@@ -230,7 +214,7 @@ class AdminVerify extends Component {
                                             
                                         </ListItem>
                                                     
-                                                    
+ 
                                              </List></td>
                                             <td >
                                             <List>
@@ -246,7 +230,9 @@ class AdminVerify extends Component {
                                                 
                                                 </td>
                                                 <td style={{textAlign: "center"}}>
-                                                    {this.state.loadingTakeTask? (<ColorCircularProgress />):
+                                                    {!this.state.buttonShow ? null: 
+                                                    
+                                                    this.state.loadingTakeTask? (<ColorCircularProgress />):
                                                 
                                                 <Button type='button' id ='verifybtn'  className={classes.completebtn} onClick= {(id, problem, volunteer) => this.verifyTask(task.id, task.problem, task.volunteer)}>Verify</Button>
                                                     

@@ -30,7 +30,8 @@ class TaskBoard extends Component {
             loading: false,
             filterTasks: [],
             loadingTakeTask: false,
-            successTakeTask: false
+            successTakeTask: false,
+            buttonShow: true
         }
     }
     componentDidMount(){
@@ -50,6 +51,7 @@ class TaskBoard extends Component {
             })
         }
         if(this.props.successTakeTask !== prevProps.successTakeTask && this.props.successTakeTask === true) {
+            console.log('true')
             this.setState({
                 successTakeTask: this.props.successTakeTask,
                 
@@ -68,18 +70,33 @@ class TaskBoard extends Component {
         
         var startingList = this.state.myTasks.filter((t) => t.status === 'Starting')
         this.setState({
-            filterTasks: startingList
+            filterTasks: startingList,
+            buttonShow: true
         })
         document.getElementById("start").style.borderBottom = "2px solid #DE9D66"
         document.getElementById("verify").style.borderBottom = "0px"
+        document.getElementById("done").style.borderBottom = "0px"
         
     }
     verifyingList = () => {
         var verifyingList = this.state.myTasks.filter((t) => t.status === 'Verifying')
         this.setState({
-            filterTasks: verifyingList
+            filterTasks: verifyingList,
+            buttonShow: false
         })
         document.getElementById("verify").style.borderBottom = "2px solid #DE9D66"
+        document.getElementById("start").style.borderBottom = "0px"
+        document.getElementById("done").style.borderBottom = "0px"
+    }
+
+    doneList = () => {
+        var doneList = this.state.myTasks.filter((t) => t.status === 'Done')
+        this.setState({
+            filterTasks: doneList,
+            buttonShow: false
+        })
+        document.getElementById("done").style.borderBottom = "2px solid #DE9D66"
+        document.getElementById("verify").style.borderBottom = "0px"
         document.getElementById("start").style.borderBottom = "0px"
     }
     completeTask = (id, problem) => {
@@ -112,7 +129,7 @@ class TaskBoard extends Component {
     }
     render() {
         const {classes} = this.props;
-       
+       console.log(this.state.loadingTakeTask)
         
         return (
             <div>
@@ -125,8 +142,8 @@ class TaskBoard extends Component {
                 
                 
                 <div className="btn-group" role="group" >
-                        <button id ='start' type="button" className={classes.btngroup} style={{borderBottom: "2px solid #DE9D66"}}onClick={() => {this.startingList(); this.showButton()}}>Starting</button><span style={{color: "#DE9D66"}}>|</span>
-                        <button id = 'verify' type="button" className={classes.btngroup} onClick={() => {this.verifyingList(); this.hideButton()}}>Verifying</button>
+                        <button id ='start' type="button" className={classes.btngroup} style={{borderBottom: "2px solid #DE9D66"}}onClick={() => this.startingList()}>Starting</button><span style={{color: "#DE9D66"}}>|</span>
+                        <button id = 'verify' type="button" className={classes.btngroup} onClick={() => this.verifyingList()}>Verifying</button><span style={{color: "#DE9D66"}}>|</span><button id='done' type="button" className={classes.btngroup} onClick={() => this.doneList()}>Done</button>
                 </div>
                 
                 <div className={classes.table}>
@@ -229,11 +246,15 @@ class TaskBoard extends Component {
                                                 
                                                 </td>
                                                 <td style={{textAlign: "center"}}>
-                                                    {this.state.loadingTakeTask? (<ColorCircularProgress />):
-                                                
-                                                <Button id = 'verifybtn'className={classes.completebtn} onClick= {(id, problem) => this.completeTask(task.id, task.problem)}>Complete</Button>
+                                                    {!this.state.buttonShow ? null: 
                                                     
+                                                    this.state.loadingTakeTask? (<ColorCircularProgress />):
+                                                
+                                                        <Button id = 'verifybtn' className={classes.completebtn} onClick= {(id, problem) => this.completeTask(task.id, task.problem)}>Complete</Button>
+                                                            
+                                                            
                                                     }
+                                                    
                                                 </td>
                                         </tr>
                                             
