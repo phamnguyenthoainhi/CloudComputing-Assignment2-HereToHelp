@@ -40,7 +40,7 @@ const style = (theme) => ({
         borderRadius: theme.button.radius,
         '&:hover':{
             
-            color: theme.orange.darker
+            color: theme.orange.darkest
         }
     },
     title: {

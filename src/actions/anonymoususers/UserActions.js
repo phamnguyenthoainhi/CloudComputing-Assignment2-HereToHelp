@@ -2,15 +2,26 @@ import {
     REGISTER_PROBLEM_LOADING,REGISTER_PROBLEM_SUCCESS, 
     REGISTER_ACCOUNT, REGISTER_ACCOUNT_LOADING,REGISTER_ACCOUNT_SUCCESS,
     LOGIN_ACCOUNT, LOGIN_ACCOUNT_LOADING,LOGIN_ACCOUNT_SUCCESS,
-    REGISTER_TASK, REGISTER_TASK_LOADING,REGISTER_TASK_SUCCESS,
-    GET_PROBLEM_SUCCESS,
-    GET_TASKS_LOADING,GET_TASKS_SUCCESS,
+    REGISTER_TASK_LOADING,REGISTER_TASK_SUCCESS, TRIGGER_SEND_EMAIL
+   
      
     
 
 
 } from '../actionTypes';
 
+
+export const triggersendemail = (email) => dispatch => {
+    fetch(TRIGGER_SEND_EMAIL, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+                'Content-type': 'application/json'
+        },
+        body: JSON.stringify(email)
+    })
+    
+}
 export const registerVolunteer = (volunteer) => dispatch => {
     dispatch({
         type: REGISTER_ACCOUNT_LOADING
@@ -30,6 +41,13 @@ export const registerVolunteer = (volunteer) => dispatch => {
                  type: REGISTER_ACCOUNT_SUCCESS,
                  payload: true
              })
+             const email = {
+                 email: volunteer.email,
+                 subject: "Welcome to HereToHelp",
+                 content: "Hi there, we are glad to have you. Let's make a world a better place together"
+             }
+            //  dispatch(triggersendemail(email))
+
  
              
          } 
@@ -87,9 +105,7 @@ export const login = (account) => dispatch => {
     .then((res) => {
          if(res.status === 302) {
             res.json().then(function(data) {
-                sessionStorage.setItem("role", data.role)
-                
-                
+                sessionStorage.setItem("role", data.role)                
                 dispatch({
                     type: LOGIN_ACCOUNT_SUCCESS,
                     payload: true 
@@ -165,6 +181,15 @@ export const registerProblem = (problem) => dispatch => {
                 type: REGISTER_PROBLEM_SUCCESS,
                 payload: true
             })
+            if (problem.email !== null && problem.email !== "")  {
+                const email = {
+                    email: problem.email,
+                    subject: "HereToHelp says hi",
+                    content: "Hi there, We know that you have difficulty and we have well noted. Please wait for our volunteer to contact you. Stay tuned!"
+                }
+                // dispatch(triggersendemail(email))
+            }
+            
 
             
         } else {
@@ -227,30 +252,6 @@ export const getAProblem = (id) => dispatch => {
         }
     })
 }
-// export const getTasks = () => dispatch => {
-//     console.log("get tasks")
-//     dispatch({
-//         type: GET_TASKS_LOADING
-//     })
-//     fetch('http://localhost:8080/tasks', {
-//         method: 'GET',
-//         headers: {
-//             'Accept': 'application/json',
-//             'Content-type': 'application/json'
-//         },
-        
-//     })
-//     .then((res) =>  {
-//         if(res.status === 200) {
-//             console.log("2000")
-//             dispatch({
-//                 type: GET_TASKS_SUCCESS,
-//                 payload: true
-//             })
-//         }
-//     })
-
-// }
 
 export const createTask = (task) => dispatch => {
     dispatch({

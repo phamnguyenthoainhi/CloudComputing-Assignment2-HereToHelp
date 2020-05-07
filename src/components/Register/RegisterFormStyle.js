@@ -77,19 +77,21 @@ const style = (theme) => ({
     successbutton:{
         
         
-        backgroundColor: theme.blue.darker,
-        color: theme.orange.dark,
+        backgroundColor: 'white',
+        border: "2px solid black",
         fontFamily: theme.font,
+        color: theme.green.darkest,
         marginTop: 20,
         marginBottom: 10,
         padding: 10,
         paddingLeft: 25,
         paddingRight: 25,
         fontSize: "14px",
+        transitionDuration: '0.4s',
         borderRadius: theme.button.radius,
         '&:hover':{
-            backgroundColor: theme.blue.darkest,
-            color: theme.orange.darker
+            
+            color: theme.orange.darkest
         }
         
     },

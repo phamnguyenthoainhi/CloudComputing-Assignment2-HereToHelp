@@ -3,13 +3,11 @@ import style from './AdminStyle';
 import {connect} from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Grid from '@material-ui/core/Grid';
+
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
+
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import {getTasksAdmin, takeTask} from '../../actions/volunteers/VolunteeerActions'
@@ -135,11 +133,12 @@ class AdminVerify extends Component {
                         <table className="table table-borderless">
                                     <thead>
                                     <tr>
-                                        <th style={{width: '10%', textAlign: 'center', color: "#51617D"}}>#</th>
-                                        <th style={{width: '30%', textAlign: 'center', color: "#51617D"}}>Problem Information
+                                        <th style={{width: '7%', textAlign: 'center', color: "#51617D"}}>#</th>
+                                        <th style={{width: '25%', textAlign: 'center', color: "#51617D"}}>Problem Information
                                         </th>
-                                        <th style={{width: '40%', textAlign: 'center', color: "#51617D"}}>Problem Description</th>
-                                        <th style={{width: '20%', textAlign: 'center', color: "#51617D"}}></th>
+                                        <th style={{width: '30%', textAlign: 'center', color: "#51617D"}}>Problem Description</th>
+                                        <th style={{width: '25%', textAlign: 'center', color: "#51617D"}}>Volunteer Information</th>
+                                        <th style={{width: '13%', textAlign: 'center', color: "#51617D"}}></th>
                                     </tr>
                                     </thead>
                                     
@@ -227,6 +226,51 @@ class AdminVerify extends Component {
                                                     
                                                     
                                             </List>
+                                                
+                                                </td>
+                                                <td >
+                                                <List>
+                                                    
+                                                    <ListItem>
+                                            <ListItemAvatar>
+                                            
+                                            </ListItemAvatar>
+                                            <ListItemText primary="Name" secondary={task.volunteer.name} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
+                                            
+                                        </ListItem>
+                                        <ListItem>
+                                        <ListItemAvatar>
+                                          
+                                        </ListItemAvatar>
+                                           
+                                            <ListItemText primary="Birthday" secondary= {task.volunteer.birthday} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}} />
+                                            
+                                        </ListItem>
+                                        <ListItem>
+                                        <ListItemAvatar>
+                                            
+                                        </ListItemAvatar>
+                                            
+                                            <ListItemText primary="Gender" secondary= {task.volunteer.gender} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
+                                        </ListItem>
+                                        
+                                        <ListItem>
+                                            <ListItemAvatar>
+                                            
+                                            </ListItemAvatar>
+                                            
+                                            <ListItemText primary="Phone Number" secondary= {task.volunteer.phone} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemAvatar>
+                                            
+                                            </ListItemAvatar>
+                                            <ListItemText primary="Email" secondary={task.volunteer.email} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
+                                            
+                                        </ListItem>
+                                                    
+ 
+                                             </List>
                                                 
                                                 </td>
                                                 <td style={{textAlign: "center"}}>

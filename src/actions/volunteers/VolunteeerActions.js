@@ -9,6 +9,8 @@ import {
 
 } from '../actionTypes';
 
+import {triggersendemail} from '../anonymoususers/UserActions'
+
 
 export const getTasks = () => dispatch => {
     dispatch({
@@ -126,6 +128,25 @@ export const takeTask = (task) => dispatch => {
                  type: TAKE_TASK_SUCCESS,
                  payload: true
              })
+             if (task.status === "Starting") {
+                 if (task.problem.email !== null && task.problem.email !== "") {
+                    const email = {
+                        email: task.problem.email,
+                        subject: "HereToHelp Update",
+                        content: "A Volunteer has been assigned to help you!. Stay tuned"
+                    }
+                    // dispatch(triggersendemail(email))
+                 }
+                
+             }
+             if (task.status === "Done") {
+                const email = {
+                    email: task.volunteer.email,
+                    subject: "HereToHelp Update",
+                    content: "Your task has been resolved by Admin. You can check it out in your Resolved section in you Task Board!"
+                }
+                // dispatch(triggersendemail(email))
+             }
  
              
          } else {
