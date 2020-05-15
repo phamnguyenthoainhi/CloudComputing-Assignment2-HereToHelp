@@ -26,7 +26,7 @@ class AboutUs extends Component {
                         
                     </Typography>
                     <Typography className={classes.text}>
-                        So I make this website, hopefully to connect those in need and those wanting to help others.
+                        So I make this website, hopefully to connect those in need and those wanting to help.
                     </Typography>
                     
 

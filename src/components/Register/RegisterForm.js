@@ -12,12 +12,14 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {registerVolunteer} from '../../actions/anonymoususers/UserActions';
 import DoneIcon from '@material-ui/icons/Done';
 import {Link} from "react-router-dom";
+
 const ColorCircularProgress = withStyles({
     root: {
       color: '#E3DEAC'
       
     },
   })(CircularProgress);
+
 class RegisterForm extends Component {
     constructor(props) {
         super(props);
@@ -76,15 +78,17 @@ class RegisterForm extends Component {
 
     onChange(e) {
         
+        
         this.setState({
             [e.target.name] : e.target.value
-        })
-        
+        }) 
         
     }
+
     success() {
         this.props.history.push('/login')
     }
+
     render() {
         const {classes } = this.props 
        
@@ -117,9 +121,9 @@ class RegisterForm extends Component {
                                    InputProps={{ style: { fontSize: 16 } }}
                                     InputLabelProps={{ style: { fontSize: 14 } }}
                                    >
-                                   <MenuItem value = 'Female' >Female</MenuItem>
-                                       <MenuItem value = 'Male' >Male</MenuItem>
-                                       <MenuItem value = 'Other'>Other</MenuItem>
+                                   <MenuItem value = 'Female' name ='gender'>Female</MenuItem>
+                                       <MenuItem value = 'Male' name ='gender'>Male</MenuItem>
+                                       <MenuItem value = 'Other' name ='gender'>Other</MenuItem>
                                        
                                    </TextField>
 

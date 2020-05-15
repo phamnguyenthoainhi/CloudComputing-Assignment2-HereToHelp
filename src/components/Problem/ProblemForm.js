@@ -56,10 +56,11 @@ class ProblemForm extends Component {
     };
 
     onChange(e) {
-        
+        console.log(e.target.value)
         this.setState({
             [e.target.name] : e.target.value
         })
+        
         
         
     }
@@ -91,7 +92,7 @@ class ProblemForm extends Component {
             phone: this.state.phone,
             email: this.state.email,
         };
-        
+        // console.log(JSON.stringify(problem))
         this.props.registerProblem(problem);
 
     }
@@ -150,7 +151,7 @@ class ProblemForm extends Component {
 
                             <FormControl className={classes.formControl} fullWidth>
                                    
-                                   <TextField type ='tetx' id="select" label ='Your Gender' select className ={classes.input} 
+                                   <TextField type ='text' id="select" label ='Your Gender' select className ={classes.input} 
                                    
                                     InputProps={{ style: { fontSize: 16 } }}
                                     InputLabelProps={{ style: { fontSize: 14 } }}
@@ -158,9 +159,9 @@ class ProblemForm extends Component {
                                     name ='ownerGender'
                                     onChange= {(e) => this.onChange(e)}
                                    >
-                                   <MenuItem value = 'Female' >Female</MenuItem>
-                                       <MenuItem value = 'Male' >Male</MenuItem>
-                                       <MenuItem value = 'Other'>Other</MenuItem>
+                                   <MenuItem value = 'Female'name ='ownerGender' >Female</MenuItem>
+                                       <MenuItem value = 'Male' name ='ownerGender'>Male</MenuItem>
+                                       <MenuItem value = 'Other' name ='ownerGender'>Other</MenuItem>
                                        
                                    </TextField>
                                        

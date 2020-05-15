@@ -3,7 +3,7 @@ import style from './TaskBoardStyle';
 
 import {connect} from 'react-redux';
 import { withStyles } from '@material-ui/core';
-import {getMyTasks, takeTask} from '../../../actions/volunteers/VolunteeerActions'
+import {getMyTasks, takeTask, getVolunteerTasks} from '../../../actions/volunteers/VolunteeerActions'
 import Typography from '@material-ui/core/Typography';
 import {Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';
@@ -31,31 +31,48 @@ class TaskBoard extends Component {
             filterTasks: [],
             loadingTakeTask: false,
             successTakeTask: false,
-            buttonShow: true
+            buttonShow: true,
+
+            tasksvolunteer: [],
+            loadingTasks: false
         }
     }
     componentDidMount(){
-        this.props.getMyTasks(atob(sessionStorage.getItem('id')));
+        // this.props.getMyTasks(atob(sessionStorage.getItem('id')));
+        
+        this.props.getVolunteerTasks("Starting",atob(sessionStorage.getItem('id')) );
     }
     componentDidUpdate(prevProps) {
-        if(this.props.myTasks !== prevProps.myTasks) {
-            this.setState({
-                myTasks: this.props.myTasks,
-                filterTasks: this.props.myTasks.filter((t) => t.status === 'Starting')
-            })
-        }
+      
         if(this.props.loadingTakeTask !== prevProps.loadingTakeTask) {
             this.setState({
                 loadingTakeTask: this.props.loadingTakeTask,
                 
             })
         }
+        if(this.props.tasksvolunteer !== prevProps.tasksvolunteer) {
+            this.setState({
+                tasksvolunteer: this.props.tasksvolunteer,
+                filterTasks: this.props.tasksvolunteer
+            })
+            console.log(this.state.filterTasks)
+        }
+
+        if(this.props.loadingTasks !== prevProps.loadingTasks) {
+            this.setState({
+                loadingTasks: this.props.loadingTasks,
+
+            })
+        }
+
         if(this.props.successTakeTask !== prevProps.successTakeTask && this.props.successTakeTask === true) {
             console.log('true')
             this.setState({
                 successTakeTask: this.props.successTakeTask,
+                buttonShow: false
                 
             })
+            
             this.props.getMyTasks(atob(sessionStorage.getItem('id')));
             
         }
@@ -66,11 +83,12 @@ class TaskBoard extends Component {
             })
         }
     }
+
     startingList = () => {
+        this.props.getVolunteerTasks("Starting", atob(sessionStorage.getItem('id')))
         
-        var startingList = this.state.myTasks.filter((t) => t.status === 'Starting')
         this.setState({
-            filterTasks: startingList,
+            
             buttonShow: true
         })
         document.getElementById("start").style.borderBottom = "2px solid #DE9D66"
@@ -79,9 +97,10 @@ class TaskBoard extends Component {
         
     }
     verifyingList = () => {
-        var verifyingList = this.state.myTasks.filter((t) => t.status === 'Verifying')
+        this.props.getVolunteerTasks("Verifying", atob(sessionStorage.getItem('id')))
+    
         this.setState({
-            filterTasks: verifyingList,
+            
             buttonShow: false
         })
         document.getElementById("verify").style.borderBottom = "2px solid #DE9D66"
@@ -90,11 +109,14 @@ class TaskBoard extends Component {
     }
 
     doneList = () => {
-        var doneList = this.state.myTasks.filter((t) => t.status === 'Done')
+        this.props.getVolunteerTasks("Done", atob(sessionStorage.getItem('id')))
+        // var doneList = this.state.tasks.filter((t) => t.volunteer.id === atob(sessionStorage.getItem('id')))
+        
         this.setState({
-            filterTasks: doneList,
+            
             buttonShow: false
         })
+
         document.getElementById("done").style.borderBottom = "2px solid #DE9D66"
         document.getElementById("verify").style.borderBottom = "0px"
         document.getElementById("start").style.borderBottom = "0px"
@@ -128,8 +150,8 @@ class TaskBoard extends Component {
     document.getElementById("verifybtn").style.display = "none";
     }
     render() {
-        const {classes} = this.props;
-       console.log(this.state.loadingTakeTask)
+    const {classes} = this.props;
+   
         
         return (
             <div>
@@ -160,7 +182,7 @@ class TaskBoard extends Component {
                                     </thead>
                                     
                                     <tbody className={classes.tbody}>
-                                        {this.state.loading ? 
+                                        {this.state.loadingTasks ? 
                                         (
                                         <tr>
                                             <th scope="row"><Skeleton variant="rect" animation="wave"height={70} /></th>
@@ -277,6 +299,7 @@ class TaskBoard extends Component {
 const mapDispatchToProps = dispatch => ({
     getMyTasks: (id) => dispatch(getMyTasks(id)),
     takeTask: (task) => dispatch(takeTask(task)),
+    getVolunteerTasks: (status, id) => dispatch(getVolunteerTasks(status, id))
 
     
 
@@ -287,7 +310,11 @@ const mapStateToProps = state => ({
     loadingTakeTask: state.taskReducer.loadingTakeTask,
     successTakeTask: state.taskReducer.successTakeTask,
     myTasks: state.taskReducer.myTasks,
-    loadingMyTasks: state.taskReducer.loadingMyTasks
+    loadingMyTasks: state.taskReducer.loadingMyTasks,
+    loadingTasks: state.taskReducer.loadingTasksVolunteer,
+    tasksvolunteer: state.taskReducer.tasksvolunteer,
+
+    
    
 })
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(TaskBoard));

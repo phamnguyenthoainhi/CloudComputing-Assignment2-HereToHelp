@@ -24,7 +24,8 @@ class TaskDetails extends Component {
         super(props);
         this.state = {
             loading: false,
-            success: false
+            success: false,
+            loadingTasks: false
         
         }
     }
@@ -40,6 +41,7 @@ class TaskDetails extends Component {
                     id: id
                 }
             }
+            // console.log(JSON.stringify(task))
             this.props.takeTask(task)
         } else {
             console.log("log in again")
@@ -47,9 +49,15 @@ class TaskDetails extends Component {
         
     }
     componentDidUpdate(prevProps) {
+        
         if (this.props.loading !== prevProps.loading) {
             this.setState({
                 loading: this.props.loading
+            })
+        }
+        if (this.props.loadingTasks !== prevProps.loadingTasks) {
+            this.setState({
+                loadingTasks: this.props.loadingTasks
             })
         }
         if (this.props.success !== prevProps.success && this.props.success === true) {
@@ -76,117 +84,123 @@ class TaskDetails extends Component {
                     <Button className={classes.successbtn} onClick = {() => this.totaskboard()}>My Task Board</Button>
 
                 </div>
-                 <Grid container spacing={3} id='below'>
-                    <Grid item xs={6} className={classes.left}>
+                {this.state.laodingTasks ? <div className={classes.success} >
+                    <Typography className={classes.successtext}>Loading...</Typography>
                     
-                    <div style={{textAlign: "center"}}>
-                    <img src="https://cdn.dribbble.com/users/1355613/screenshots/6681350/zzpstart-01_4x.png?compress=1&resize=1200x900" width="80%"  alt="Logo" style={{paddingTop :"100px"}}/>
-                    <img src="images/quote.jpg" width="80%"  alt="Logo" style={{paddingTop :"0px"}}/>
-                    </div>
-                    
-                    </Grid>
-                    <Grid item xs ={6} className={classes.right}> 
-                        
-                                <List className={classes.rootList}>
-                                    <div className={classes.btnContainer}>
-                                        {this.state.loading ? 
-                                        
-                                        (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
-                                
-                                :
-                                <Button className={classes.button} onClick = {() => this.takeTask()}>Take this problem</Button>
-                                
-                                }
 
-                                    </div>
-                                    <Divider />
-                                    <ListItem>
+                </div> :
+                (<Grid container spacing={3} id='below'>
+                <Grid item xs={6} className={classes.left}>
+                
+                <div style={{textAlign: "center"}}>
+                <img src="https://cdn.dribbble.com/users/1355613/screenshots/6681350/zzpstart-01_4x.png?compress=1&resize=1200x900" width="80%"  alt="Logo" style={{paddingTop :"100px"}}/>
+                <img src="images/quote.jpg" width="80%"  alt="Logo" style={{paddingTop :"0px"}}/>
+                </div>
+                
+                </Grid>
+                <Grid item xs ={6} className={classes.right}> 
+                    
+                            <List className={classes.rootList}>
+                                <div className={classes.btnContainer}>
+                                    {this.state.loading ? 
+                                    
+                                    (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%", marginBottom: "5%"}}/>)
+                            
+                            :
+                            <Button className={classes.button} onClick = {() => this.takeTask()}>Take this problem</Button>
+                            
+                            }
+
+                                </div>
+                                <Divider />
+                                <ListItem>
+                                <ListItemAvatar>
+                                <Avatar className={classes.avatar}>
+                                    <img src="https://image.flaticon.com/icons/svg/428/428425.svg" width="70%" height="70%" alt="Logo" style={{paddingTop :"0px"}}/>
+
+                                    </Avatar>
+                                </ListItemAvatar>
+                                
+                                    
+                                    <ListItemText primary="Date Posted" secondary={this.props.task.problem.date} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
+                                </ListItem>
+                               
+                                <Divider variant="inset"/>
+                                <ListItem>
                                     <ListItemAvatar>
                                     <Avatar className={classes.avatar}>
-                                        <img src="https://image.flaticon.com/icons/svg/428/428425.svg" width="70%" height="70%" alt="Logo" style={{paddingTop :"0px"}}/>
-
-                                        </Avatar>
+                                        <img src="https://image.flaticon.com/icons/svg/684/684908.svg" width="70%" height="70%" alt="Logo" style={{paddingTop :"0px"}}/>
+                                    </Avatar>
                                     </ListItemAvatar>
+                                    <ListItemText primary="Address" secondary={this.props.task.problem.location} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
+                                </ListItem>
+                                <Divider variant="inset" component="li" />
+                                <ListItem>
+                                    <ListItemAvatar>
+                                    <Avatar className={classes.avatar}>
+                                    <img src="https://image.flaticon.com/icons/svg/1077/1077012.svg" width="70%" height="70%" alt="Logo" style={{paddingTop :"0px"}}/>
+
+                                    </Avatar>
+                                    </ListItemAvatar>
+                                    <ListItemText primary="Name" secondary={this.props.task.problem.ownerName} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
                                     
-                                        
-                                        <ListItemText primary="Date Posted" secondary={this.props.task.problem.date} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
-                                    </ListItem>
+                                </ListItem>
+                                <ListItem>
+                                <ListItemAvatar>
+                                  
+                                </ListItemAvatar>
                                    
-                                    <Divider variant="inset"/>
-                                    <ListItem>
-                                        <ListItemAvatar>
-                                        <Avatar className={classes.avatar}>
-                                            <img src="https://image.flaticon.com/icons/svg/684/684908.svg" width="70%" height="70%" alt="Logo" style={{paddingTop :"0px"}}/>
-                                        </Avatar>
-                                        </ListItemAvatar>
-                                        <ListItemText primary="Address" secondary={this.props.task.problem.location} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
-                                    </ListItem>
-                                    <Divider variant="inset" component="li" />
-                                    <ListItem>
-                                        <ListItemAvatar>
-                                        <Avatar className={classes.avatar}>
-                                        <img src="https://image.flaticon.com/icons/svg/1077/1077012.svg" width="70%" height="70%" alt="Logo" style={{paddingTop :"0px"}}/>
-
-                                        </Avatar>
-                                        </ListItemAvatar>
-                                        <ListItemText primary="Name" secondary={this.props.task.problem.ownerName} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
-                                        
-                                    </ListItem>
-                                    <ListItem>
+                                    <ListItemText primary="Birthday" secondary= {this.props.task.problem.ownerBirthday} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}} />
+                                    
+                                </ListItem>
+                                <ListItem>
+                                <ListItemAvatar>
+                                    
+                                </ListItemAvatar>
+                                    
+                                    <ListItemText primary="Gender" secondary= {this.props.task.problem.ownerGender} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
+                                </ListItem>
+                                <Divider variant="inset" component="li" />
+                                <ListItem>
                                     <ListItemAvatar>
-                                      
+                                    <Avatar className={classes.avatar}>
+                                    <img src="https://image.flaticon.com/icons/svg/552/552489.svg" width="70%" height="70%" alt="Logo" style={{paddingTop :"0px"}}/>
+
+                                    </Avatar>
                                     </ListItemAvatar>
-                                       
-                                        <ListItemText primary="Birthday" secondary= {this.props.task.problem.ownerBirthday} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}} />
-                                        
-                                    </ListItem>
-                                    <ListItem>
+                                    
+                                    <ListItemText primary="Phone Number" secondary= {this.props.task.problem.phone} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
+                                </ListItem>
+                                <ListItem>
                                     <ListItemAvatar>
-                                        
+                                    <Avatar className={classes.avatar}>
+                                    <img src="https://image.flaticon.com/icons/svg/726/726580.svg" width="70%" height="70%" alt="Logo" style={{paddingTop :"0px"}}/>
+
+                                    </Avatar>
                                     </ListItemAvatar>
-                                        
-                                        <ListItemText primary="Gender" secondary= {this.props.task.problem.ownerGender} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
-                                    </ListItem>
-                                    <Divider variant="inset" component="li" />
-                                    <ListItem>
-                                        <ListItemAvatar>
-                                        <Avatar className={classes.avatar}>
-                                        <img src="https://image.flaticon.com/icons/svg/552/552489.svg" width="70%" height="70%" alt="Logo" style={{paddingTop :"0px"}}/>
-
-                                        </Avatar>
-                                        </ListItemAvatar>
-                                        
-                                        <ListItemText primary="Phone Number" secondary= {this.props.task.problem.phone} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemAvatar>
-                                        <Avatar className={classes.avatar}>
-                                        <img src="https://image.flaticon.com/icons/svg/726/726580.svg" width="70%" height="70%" alt="Logo" style={{paddingTop :"0px"}}/>
-
-                                        </Avatar>
-                                        </ListItemAvatar>
-                                        <ListItemText primary="Email" secondary={this.props.task.problem.email} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
-                                        
-                                    </ListItem>
+                                    <ListItemText primary="Email" secondary={this.props.task.problem.email} classes={{primary:classes.listItemText1, secondary: classes.listItemText2}}/>
                                     
-                                    <Divider variant="inset" component="li" />
-                                    <ListItem>
-                                        <ListItemAvatar>
-                                        <Avatar className={classes.avatar}>
-                                        <img src="https://image.flaticon.com/icons/svg/1642/1642257.svg" width="70%" height="70%" alt="Logo" style={{paddingTop :"0px"}}/>
+                                </ListItem>
+                                
+                                <Divider variant="inset" component="li" />
+                                <ListItem>
+                                    <ListItemAvatar>
+                                    <Avatar className={classes.avatar}>
+                                    <img src="https://image.flaticon.com/icons/svg/1642/1642257.svg" width="70%" height="70%" alt="Logo" style={{paddingTop :"0px"}}/>
 
-                                        </Avatar>
-                                        </ListItemAvatar>
-                                        <ListItemText primary="Description" classes={{primary:classes.listItemText1, secondary: classes.listItemText2}} secondary={this.props.task.problem.description} />
-                                        
-                                    </ListItem>
-                                    <Divider />
+                                    </Avatar>
+                                    </ListItemAvatar>
+                                    <ListItemText primary="Description" classes={{primary:classes.listItemText1, secondary: classes.listItemText2}} secondary={this.props.task.problem.description} />
                                     
-                                    
-                                    </List>
-                    </Grid>
-                    
+                                </ListItem>
+                                <Divider />
+                                
+                                
+                                </List>
                 </Grid>
+                
+            </Grid>) }
+                 
             </div>
         )
     }

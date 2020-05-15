@@ -39,6 +39,17 @@ export const GET_TASKS_SUCCESS_VOLUNTEER = 'GET_TASKS_SUCCESS_VOLUNTEER';
 export const TAKE_TASK_LOADING = 'TAKE_TASK_LOADING';
 export const TAKE_TASK_SUCCESS = 'TAKE_TASK_SUCCESS';
 
+
+
+
+export const GET_STARTING_TASKS_SUCCESS = 'GET_STARTING_TASKS_SUCCESS';
+
+export const GET_VERIFYING_TASKS_SUCCESS = 'GET_VERIFYING_TASKS_SUCCESS';
+
+
+export const GET_DONE_TASKS_SUCCESS = 'GET_DONE_TASKS_SUCCESS';
+
+
 export const TRIGGER_SEND_EMAIL = "https://a7fiukq525.execute-api.us-west-2.amazonaws.com/prod/sendemailuser"
 
 

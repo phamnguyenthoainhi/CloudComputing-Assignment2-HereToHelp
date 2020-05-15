@@ -1,7 +1,9 @@
 const style = (theme) => ({
     container:{
         textAlign: 'center',
-        fontFamily: theme.font
+        fontFamily: theme.font,
+        marginLeft: 50,
+        marginRight: 50
     },
     avatar: {
         width: theme.spacing(25),

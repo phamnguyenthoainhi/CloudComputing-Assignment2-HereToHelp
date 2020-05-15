@@ -4,11 +4,9 @@ import {
     LOGIN_ACCOUNT, LOGIN_ACCOUNT_LOADING,LOGIN_ACCOUNT_SUCCESS,
     REGISTER_TASK_LOADING,REGISTER_TASK_SUCCESS, TRIGGER_SEND_EMAIL
    
-     
-    
-
-
 } from '../actionTypes';
+
+import {backend_url} from '../backendurl'
 
 
 export const triggersendemail = (email) => dispatch => {
@@ -26,7 +24,7 @@ export const registerVolunteer = (volunteer) => dispatch => {
     dispatch({
         type: REGISTER_ACCOUNT_LOADING
     })
-    fetch('http://localhost:8080/registerAccount', {
+    fetch(backend_url+`/registerAccount`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -41,11 +39,11 @@ export const registerVolunteer = (volunteer) => dispatch => {
                  type: REGISTER_ACCOUNT_SUCCESS,
                  payload: true
              })
-             const email = {
-                 email: volunteer.email,
-                 subject: "Welcome to HereToHelp",
-                 content: "Hi there, we are glad to have you. Let's make a world a better place together"
-             }
+            //  const email = {
+            //      email: volunteer.email,
+            //      subject: "Welcome to HereToHelp",
+            //      content: "Hi there, we are glad to have you as a member. Let's make a world a better place together"
+            //  }
             //  dispatch(triggersendemail(email))
 
  
@@ -70,8 +68,8 @@ export const registerVolunteer = (volunteer) => dispatch => {
 }
 
 export const getUserbyEmail = (email) => dispatch => {
-    console.log("Hello")
-    fetch(`http://localhost:8080/getVolunteerByEmail?email=${email}`, {
+    
+    fetch(backend_url+`/getVolunteerByEmail?email=${email}`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -94,7 +92,7 @@ export const login = (account) => dispatch => {
     dispatch({
         type: LOGIN_ACCOUNT_LOADING
     })
-    fetch('http://localhost:8080/login', {
+    fetch(backend_url+'/login', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -110,7 +108,7 @@ export const login = (account) => dispatch => {
                     type: LOGIN_ACCOUNT_SUCCESS,
                     payload: true 
                 })
-                fetch(`http://localhost:8080/getVolunteerByEmail?email=${data.email}`, {
+                fetch(backend_url+`/getVolunteerByEmail?email=${data.email}`, {
                     
                         method: 'GET',
                         headers: {
@@ -136,7 +134,7 @@ export const login = (account) => dispatch => {
                 type: LOGIN_ACCOUNT,
                 payload: {
                     code: 'email',
-                    message: "Email is either not register or not in correct format. Please try again"
+                    message: "Email is either not registered or not in correct format. Please try again"
                 }
                 
             })
@@ -160,7 +158,7 @@ export const registerProblem = (problem) => dispatch => {
     dispatch({
         type: REGISTER_PROBLEM_LOADING
     })
-    fetch('http://localhost:8080/problems', {
+    fetch(backend_url+'/problems', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -182,11 +180,11 @@ export const registerProblem = (problem) => dispatch => {
                 payload: true
             })
             if (problem.email !== null && problem.email !== "")  {
-                const email = {
-                    email: problem.email,
-                    subject: "HereToHelp says hi",
-                    content: "Hi there, We know that you have difficulty and we have well noted. Please wait for our volunteer to contact you. Stay tuned!"
-                }
+                // const email = {
+                //     email: problem.email,
+                //     subject: "HereToHelp says hi",
+                //     content: "Hi there, we know that you have difficulty and we have well noted. Please wait for our volunteer to contact you. Stay tuned!"
+                // }
                 // dispatch(triggersendemail(email))
             }
             
@@ -203,7 +201,7 @@ export const registerProblem = (problem) => dispatch => {
 }
 
 export const getAProblem = (id) => dispatch => {
-    fetch(`http://localhost:8080/problem?id=${id}`, {
+    fetch(backend_url+`/problem?id=${id}`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -257,7 +255,7 @@ export const createTask = (task) => dispatch => {
     dispatch({
         type: REGISTER_TASK_LOADING
     })
-    fetch('http://localhost:8080/tasks', {
+    fetch(backend_url+'/tasks', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

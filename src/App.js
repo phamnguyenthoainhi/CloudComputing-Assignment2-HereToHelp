@@ -33,7 +33,7 @@ componentDidMount() {
   this.props.getTasks()
 }
 componentDidUpdate(prevProps) {
-  
+
   if (this.props.loadingTasks !== prevProps.loadingTasks) {
     this.setState({
         loadingTasks: this.props.loadingTasks
@@ -85,7 +85,7 @@ componentDidUpdate(prevProps) {
                 <Route exact path={`/`+IdPath} render={(props) => <TaskDetails 
                 {...props} 
                 task = {task}
-                loading = {this.state.loadingTasks}
+                tasksLoading = {this.props.loadingTasks}
 
               
                 />} />
