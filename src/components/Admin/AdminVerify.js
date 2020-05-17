@@ -15,6 +15,7 @@ import { Skeleton } from '@material-ui/lab';
 import {Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Backdrop from '@material-ui/core/Backdrop';
 const ColorCircularProgress = withStyles({
     root: {
       color: '#E3DEAC'
@@ -108,8 +109,11 @@ class AdminVerify extends Component {
 
     render() {
         const {classes} = this.props;
-        console.log(this.state.loadingTaskAdmin)
+        // console.log(this.state.loadingTaskAdmin)
         return (
+            <div>
+
+            
             <div className={classes.box}>
                 <div><Button className={classes.home} component={Link} to = {'/'}>Home</Button></div>
                 <div className= {classes.container} style={{textAlign: "center"}}>
@@ -276,7 +280,7 @@ class AdminVerify extends Component {
                                                 <td style={{textAlign: "center"}}>
                                                     {!this.state.buttonShow ? null: 
                                                     
-                                                    this.state.loadingTakeTask? (<ColorCircularProgress />):
+                                                    
                                                 
                                                 <Button type='button' id ='verifybtn'  className={classes.completebtn} onClick= {(id, problem, volunteer) => this.verifyTask(task.id, task.problem, task.volunteer)}>Verify</Button>
                                                     
@@ -294,6 +298,15 @@ class AdminVerify extends Component {
                         </table>
                 </div>
             </div>
+            </div>
+            {this.state.loadingTakeTask?
+            <div>
+            <Backdrop className={classes.backdrop} open={true}>
+                <ColorCircularProgress  />
+            </Backdrop>
+
+            </div>
+    :null}
             </div>
         )
     }

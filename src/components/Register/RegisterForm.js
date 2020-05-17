@@ -33,6 +33,7 @@ class RegisterForm extends Component {
             gender: '',
             phone: '',
             birthday : '',
+            connectfailed: ''
             
             
         }
@@ -48,6 +49,7 @@ class RegisterForm extends Component {
             birthday : this.state.birthday,
 	        role: "USER"
         }
+        // console.log(JSON.stringify(volunteer))
         
         this.props.registerVolunteer(volunteer)
     } 
@@ -62,16 +64,16 @@ class RegisterForm extends Component {
                 loading: this.props.loadingRegisterAccount
             })
         }
+        if (this.props.connectfailed !== prevProps.connectfailed) {
+            this.setState({
+                connectfailed: this.props.connectfailed
+            })
+        }
         if (this.props.successRegisterAccount !== prevProps.successRegisterAccount) {
             this.setState({
                 success: this.props.successRegisterAccount,
                 registerMessage: ''
-                // name: '',
-                // email: '',
-                // password: '',
-                // gender: '',
-                // phone: '',
-                // birthday : '',
+                
             })
         }
     }
@@ -96,11 +98,13 @@ class RegisterForm extends Component {
             
             <div className={classes.bg} style ={{backgroundImage: "src='images/Untitled.jpg'"}}>
                 
-
                     <div className={classes.right} style={{textAlign: "center"}}>
                         <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
                             <Typography variant="h4" gutterBottom className={classes.tittle}>
                             Join Our Volunteer Communnity
+                            </Typography>
+                            <Typography gutterBottom >
+                            {this.state.connectfailed}
                             </Typography>
                             <TextField className={classes.input}
                                 name='name'
@@ -208,6 +212,7 @@ const mapStateToProps = state => ({
     registerMessage: state.userReducer.registerMessage,
     loadingRegisterAccount: state.userReducer.loadingRegisterAccount,
     successRegisterAccount: state.userReducer.successRegisterAccount,
+    connectfailed: state.userReducer.connectfailed
  
 });
 

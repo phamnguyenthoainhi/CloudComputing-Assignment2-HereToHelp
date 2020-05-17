@@ -4,15 +4,13 @@ import {
     GET_TASKS_LOADING_ADMIN,GET_TASKS_SUCCESS_ADMIN,
     GET_TASKS_LOADING_VOLUNTEER,GET_TASKS_SUCCESS_VOLUNTEER,
     TAKE_TASK_LOADING,TAKE_TASK_SUCCESS,
-    GET_VERIFYING_TASKS_SUCCES,
-    GET_STARTING_TASKS_SUCCES,
-    GET_DONE_TASKS_SUCCESS
+   
     
 
 
 } from '../actionTypes';
 
-// import {triggersendemail} from '../anonymoususers/UserActions'
+import {triggersendemail} from '../anonymoususers/UserActions'
 import {backend_url} from '../backendurl'
 
 export const getTasks = () => dispatch => {
@@ -98,20 +96,7 @@ export const getVolunteerTasks = (status, id) => dispatch => {
                 },
     })
     .then((res) => res.json()
-    // {
-        
-    //     if(res.status === 200) {
-    //         res.json().then(function(data) { 
-    //             console.log(data)
-    //             dispatch({
-    //                 type: GET_TASKS_SUCCESS_VOLUNTEER,
-    //                 payload: data
-    //             })
-                
-    //         })
-            
-    //     }
-    // }
+
     )
     .then((tasks) => {
         console.log(tasks)
@@ -164,7 +149,7 @@ export const takeTask = (task) => dispatch => {
         body: JSON.stringify(task)
     })
     .then((res) => {
-        
+        console.log("Take task success")
          if(res.status === 200) {
              dispatch({
                  type: TAKE_TASK_SUCCESS,
@@ -172,30 +157,30 @@ export const takeTask = (task) => dispatch => {
              })
              if (task.status === "Starting") {
                  if (task.problem.email !== null && task.problem.email !== "") {
-                    // const email = {
-                    //     email: task.problem.email,
-                    //     subject: "HereToHelp Update",
-                    //     content: "A Volunteer has been assigned to help you. Stay tuned!"
-                    // }
-                    // dispatch(triggersendemail(email))
+                    const email = {
+                        email: task.problem.email,
+                        subject: "HereToHelp Update",
+                        content: "Hi there, a Volunteer has been assigned to help you. You will be hearing from us soon!"
+                    }
+                    dispatch(triggersendemail(email))
                  }
                 
              }
              if (task.status === "Done") {
-                // const email = {
-                //     email: task.volunteer.email,
-                //     subject: "HereToHelp Update",
-                //     content: "Your task has been resolved by Admin. You can check it out in your Resolved section in your Task Board!"
-                // }
-                // dispatch(triggersendemail(email))
+                const email = {
+                    email: task.volunteer.email,
+                    subject: "HereToHelp Update",
+                    content: "Hi there, your task has been resolved by Admin. You can check it out in your Resolved section in your Task Board!"
+                }
+                dispatch(triggersendemail(email))
              }
  
              
          } else {
-             dispatch({
-                 type: TAKE_TASK_SUCCESS,
-                 payload: false
-             })
+            //  dispatch({
+            //      type: TAKE_TASK_SUCCESS,
+            //      payload: false
+            //  })
          }
     })
 }

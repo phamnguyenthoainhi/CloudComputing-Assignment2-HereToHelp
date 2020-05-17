@@ -13,7 +13,7 @@ import {Link} from "react-router-dom";
 class HomePage extends Component {
 
     logout = () => {
-        window.sessionStorage.removeItem('role');
+        window.localStorage.removeItem('role');
         window.location.reload();
     }
     render() {
@@ -21,12 +21,12 @@ class HomePage extends Component {
         
         return (
             <div>
-                 {(window.sessionStorage.getItem('role') !== null && window.sessionStorage.getItem('role') !== undefined) ? 
+                 {(window.localStorage.getItem('role') !== null && window.localStorage.getItem('role') !== undefined) ? 
                  (<div className={classes.success} style={{display: 'block'}}>
                 <Button className={classes.logout} onClick={() => this.logout()}>Logout</Button>
                 <br/>
                  <Typography className={classes.successtext}>Hello again!</Typography>
-                 {window.sessionStorage.getItem('role') === 'USER' ? 
+                 {window.localStorage.getItem('role') === 'USER' ? 
                  (
                      <div>
                          <Button className={classes.successbtn} component={Link} to='/allTasks'>All Tasks</Button>
@@ -51,7 +51,7 @@ class HomePage extends Component {
                 <Navbar/>
                 <div className ={classes.contenthome}>
                     <Grid container spacing={0} className={classes.grid}>
-                        <Grid item lg={6} className={classes.itemtopleft}>
+                        <Grid item lg={6} md={6} sm={12} xs={12} className={classes.itemtopleft}>
                             <Box className={classes.containerword} style={{textAlign: "center"}}>
                                 <Typography className={classes.welcome}>
                                     Welcome to HereToHelp
@@ -64,15 +64,15 @@ class HomePage extends Component {
                                
                             
                         </Grid>
-                        <Grid item lg={6} className={classes.itemtopright}>
+                        <Grid item lg={6} md ={6} sm={12} xs={12} className={classes.itemtopright}>
                             <img src="images/goodnews.jpeg" width="100%" height="100%" alt="Logo"/>
                         </Grid>
                     </Grid>
                     <Grid container spacing={0} className={classes.gridmiddle}>
-                        <Grid item lg={6} className={classes.itemmiddleleft}>
+                        <Grid item lg={6} md={6} sm={12} xs={12} className={classes.itemmiddleleft}>
                             <img src="https://images.unsplash.com/photo-1578357078586-491adf1aa5ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80" width="100%" height="100%" alt="Logo"/>
                         </Grid>
-                        <Grid item lg={6} className={classes.itemmiddleright} style={{textAlign: "center"}}>
+                        <Grid item lg={6} md={6} sm={12} xs={12} className={classes.itemmiddleright} style={{textAlign: "center"}}>
                             <Box className={classes.containerwordmiddle}>
                                 <Typography className={classes.welcome}>
                                     Make a true impact

@@ -14,7 +14,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { Skeleton } from '@material-ui/lab';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-
+import Backdrop from '@material-ui/core/Backdrop';
 const ColorCircularProgress = withStyles({
     root: {
       color: '#FFCDA3'
@@ -38,12 +38,13 @@ class TaskBoard extends Component {
         }
     }
     componentDidMount(){
-        // this.props.getMyTasks(atob(sessionStorage.getItem('id')));
         
-        this.props.getVolunteerTasks("Starting",atob(sessionStorage.getItem('id')) );
+        this.props.getVolunteerTasks("Starting",atob(localStorage.getItem('id')) );
     }
+
+
     componentDidUpdate(prevProps) {
-      
+      console.log(this.props)
         if(this.props.loadingTakeTask !== prevProps.loadingTakeTask) {
             this.setState({
                 loadingTakeTask: this.props.loadingTakeTask,
@@ -55,7 +56,6 @@ class TaskBoard extends Component {
                 tasksvolunteer: this.props.tasksvolunteer,
                 filterTasks: this.props.tasksvolunteer
             })
-            console.log(this.state.filterTasks)
         }
 
         if(this.props.loadingTasks !== prevProps.loadingTasks) {
@@ -66,14 +66,15 @@ class TaskBoard extends Component {
         }
 
         if(this.props.successTakeTask !== prevProps.successTakeTask && this.props.successTakeTask === true) {
+            this.props.getVolunteerTasks("Starting",atob(localStorage.getItem('id')) );
             console.log('true')
             this.setState({
                 successTakeTask: this.props.successTakeTask,
                 buttonShow: false
                 
             })
+            // console.log(this.state.buttonShow)
             
-            this.props.getMyTasks(atob(sessionStorage.getItem('id')));
             
         }
         
@@ -85,7 +86,7 @@ class TaskBoard extends Component {
     }
 
     startingList = () => {
-        this.props.getVolunteerTasks("Starting", atob(sessionStorage.getItem('id')))
+        this.props.getVolunteerTasks("Starting", atob(localStorage.getItem('id')))
         
         this.setState({
             
@@ -97,7 +98,7 @@ class TaskBoard extends Component {
         
     }
     verifyingList = () => {
-        this.props.getVolunteerTasks("Verifying", atob(sessionStorage.getItem('id')))
+        this.props.getVolunteerTasks("Verifying", atob(localStorage.getItem('id')))
     
         this.setState({
             
@@ -109,8 +110,7 @@ class TaskBoard extends Component {
     }
 
     doneList = () => {
-        this.props.getVolunteerTasks("Done", atob(sessionStorage.getItem('id')))
-        // var doneList = this.state.tasks.filter((t) => t.volunteer.id === atob(sessionStorage.getItem('id')))
+        this.props.getVolunteerTasks("Done", atob(localStorage.getItem('id')))
         
         this.setState({
             
@@ -121,10 +121,11 @@ class TaskBoard extends Component {
         document.getElementById("verify").style.borderBottom = "0px"
         document.getElementById("start").style.borderBottom = "0px"
     }
+
     completeTask = (id, problem) => {
         
-        if (sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== undefined) {
-            let v_id = atob(sessionStorage.getItem("id"))
+        if (localStorage.getItem("id") !== null && localStorage.getItem("id") !== undefined) {
+            let v_id = atob(localStorage.getItem("id"))
             const task = {
                 id : id,
                 problem: problem,
@@ -136,7 +137,7 @@ class TaskBoard extends Component {
             this.props.takeTask(task)
             
         } else {
-            console.log("log in again")
+            // console.log("log in again")
         }
     }
     showButton = () => {
@@ -154,6 +155,7 @@ class TaskBoard extends Component {
    
         
         return (
+            <div>
             <div>
                 <div><Button className={classes.home} component={Link} to = {'/'}>Home</Button></div>
                 <div className= {classes.container} style={{textAlign: "center"}}>
@@ -270,7 +272,7 @@ class TaskBoard extends Component {
                                                 <td style={{textAlign: "center"}}>
                                                     {!this.state.buttonShow ? null: 
                                                     
-                                                    this.state.loadingTakeTask? (<ColorCircularProgress />):
+                                                    
                                                 
                                                         <Button id = 'verifybtn' className={classes.completebtn} onClick= {(id, problem) => this.completeTask(task.id, task.problem)}>Complete</Button>
                                                             
@@ -290,6 +292,15 @@ class TaskBoard extends Component {
                         </table>
                 </div>
             </div>
+            </div>
+            {this.state.loadingTakeTask? 
+            <div>
+                
+            <Backdrop className={classes.backdrop} open={true} >
+                <ColorCircularProgress  />
+            </Backdrop>
+            </div>
+            :null}
             </div>
             
         )

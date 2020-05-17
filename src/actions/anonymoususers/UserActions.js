@@ -2,7 +2,8 @@ import {
     REGISTER_PROBLEM_LOADING,REGISTER_PROBLEM_SUCCESS, 
     REGISTER_ACCOUNT, REGISTER_ACCOUNT_LOADING,REGISTER_ACCOUNT_SUCCESS,
     LOGIN_ACCOUNT, LOGIN_ACCOUNT_LOADING,LOGIN_ACCOUNT_SUCCESS,
-    REGISTER_TASK_LOADING,REGISTER_TASK_SUCCESS, TRIGGER_SEND_EMAIL
+    REGISTER_TASK_LOADING,REGISTER_TASK_SUCCESS, TRIGGER_SEND_EMAIL,
+   
    
 } from '../actionTypes';
 
@@ -21,6 +22,7 @@ export const triggersendemail = (email) => dispatch => {
     
 }
 export const registerVolunteer = (volunteer) => dispatch => {
+    
     dispatch({
         type: REGISTER_ACCOUNT_LOADING
     })
@@ -34,17 +36,18 @@ export const registerVolunteer = (volunteer) => dispatch => {
     })
     .then((res) => {
         
+        
          if(res.status === 200) {
              dispatch({
                  type: REGISTER_ACCOUNT_SUCCESS,
                  payload: true
              })
-            //  const email = {
-            //      email: volunteer.email,
-            //      subject: "Welcome to HereToHelp",
-            //      content: "Hi there, we are glad to have you as a member. Let's make a world a better place together"
-            //  }
-            //  dispatch(triggersendemail(email))
+             const email = {
+                 email: volunteer.email,
+                 subject: "Welcome to HereToHelp",
+                 content: "Hi there, we are glad to have you as a member. Let's make a world a better place together!"
+             }
+             dispatch(triggersendemail(email))
 
  
              
@@ -62,7 +65,8 @@ export const registerVolunteer = (volunteer) => dispatch => {
                 payload: "Email has already registered. Please log in"
             })
 
-        }
+        } 
+        
      })
 
 }
@@ -80,8 +84,8 @@ export const getUserbyEmail = (email) => dispatch => {
     .then((res) => res.json())
 
     .then((volunteer) => {
-        console.log(volunteer)
-        sessionStorage.setItem("id", btoa(volunteer.id))
+        // console.log(volunteer)
+        localStorage.setItem("id", btoa(volunteer.id))
     }
     )
 
@@ -103,7 +107,7 @@ export const login = (account) => dispatch => {
     .then((res) => {
          if(res.status === 302) {
             res.json().then(function(data) {
-                sessionStorage.setItem("role", data.role)                
+                localStorage.setItem("role", data.role)                
                 dispatch({
                     type: LOGIN_ACCOUNT_SUCCESS,
                     payload: true 
@@ -120,7 +124,7 @@ export const login = (account) => dispatch => {
                     .then((res) => 
                     { if (res.status === 200) {
                         res.json().then(function(data) {
-                            sessionStorage.setItem("id", btoa(data.id))
+                            localStorage.setItem("id", btoa(data.id))
                         })
                     }
                    
@@ -173,19 +177,19 @@ export const registerProblem = (problem) => dispatch => {
       
         if(res.status === 200) {
             res.json().then(function(data) {
-                window.sessionStorage.setItem("problem_id", data);
+                window.localStorage.setItem("problem_id", data);
             })
             dispatch({
                 type: REGISTER_PROBLEM_SUCCESS,
                 payload: true
             })
             if (problem.email !== null && problem.email !== "")  {
-                // const email = {
-                //     email: problem.email,
-                //     subject: "HereToHelp says hi",
-                //     content: "Hi there, we know that you have difficulty and we have well noted. Please wait for our volunteer to contact you. Stay tuned!"
-                // }
-                // dispatch(triggersendemail(email))
+                const email = {
+                    email: problem.email,
+                    subject: "HereToHelp says Hi",
+                    content: "Hi there, we know that you have difficulty and we have well noted. Please wait for our volunteer to contact you. Stay tuned!"
+                }
+                dispatch(triggersendemail(email))
             }
             
 
@@ -219,7 +223,7 @@ export const getAProblem = (id) => dispatch => {
                 dispatch({
                     type: REGISTER_TASK_LOADING
                 })
-                fetch('http://localhost:8080/tasks', {
+                fetch(backend_url+'/tasks', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',

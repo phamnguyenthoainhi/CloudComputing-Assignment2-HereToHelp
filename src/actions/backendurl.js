@@ -1,1 +1,1 @@
-export const backend_url = "http://localhost:8060/backend-1.0-SNAPSHOT"
+export const backend_url = "http://ec2-3-94-215-182.compute-1.amazonaws.com:8060/backend-1.0-SNAPSHOT"

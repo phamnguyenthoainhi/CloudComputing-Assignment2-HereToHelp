@@ -31,8 +31,8 @@ class TaskDetails extends Component {
     }
     takeTask() {
 
-        if (sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== undefined) {
-            let id = atob(sessionStorage.getItem("id"))
+        if (localStorage.getItem("id") !== null && localStorage.getItem("id") !== undefined) {
+            let id = atob(localStorage.getItem("id"))
             const task = {
                 id : this.props.task.id,
                 problem: this.props.task.problem,
@@ -41,10 +41,9 @@ class TaskDetails extends Component {
                     id: id
                 }
             }
-            // console.log(JSON.stringify(task))
             this.props.takeTask(task)
         } else {
-            console.log("log in again")
+            // console.log("log in again")
         }
         
     }

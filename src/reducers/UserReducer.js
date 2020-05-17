@@ -3,6 +3,7 @@ import {
     REGISTER_ACCOUNT, REGISTER_ACCOUNT_LOADING,REGISTER_ACCOUNT_SUCCESS,
     LOGIN_ACCOUNT, LOGIN_ACCOUNT_LOADING,LOGIN_ACCOUNT_SUCCESS,
     REGISTER_TASK_LOADING, REGISTER_TASK_SUCCESS,
+    CONNECT_FAILED
     
     
     
@@ -81,11 +82,16 @@ export default function (state = initialState, action) {
                 successRegisterAccount: action.payload,
                 loadingRegisterAccount: false
             }
-
+        case CONNECT_FAILED:
+            return {
+                ...state,
+                connectfailed: action.payload,
+                loadingRegisterAccount: false
+            }
 
 
         case LOGIN_ACCOUNT: 
-        console.log(action.payload)
+        
             return {
                 ...state,
                 loadingLoginAccount:false,

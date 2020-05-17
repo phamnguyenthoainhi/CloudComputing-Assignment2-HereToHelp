@@ -37,7 +37,7 @@ class Tasks extends Component {
 
     }
     sendId(id) {
-        sessionStorage.setItem("taskid", id)
+        localStorage.setItem("taskid", id)
     }
     render() {
         const {classes} = this.props;

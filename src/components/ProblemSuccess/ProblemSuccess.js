@@ -21,8 +21,8 @@ class ProblemSuccess extends Component {
         } 
     }
     componentDidMount() {
-        if (window.sessionStorage.getItem("problem_id") !== null ) {
-            var id = window.sessionStorage.getItem("problem_id")
+        if (window.localStorage.getItem("problem_id") !== null ) {
+            var id = window.localStorage.getItem("problem_id")
             this.props.getAProblem(id);
         }
     }

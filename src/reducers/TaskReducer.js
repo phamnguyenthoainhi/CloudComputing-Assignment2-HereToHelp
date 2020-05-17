@@ -84,7 +84,7 @@ export default function (state = initialState, action) {
             }
         case GET_TASKS_SUCCESS_VOLUNTEER: 
 
-        console.log(action.payload)
+        // console.log(action.payload)
                 return {
                     ...state,
                     tasksvolunteer: action.payload,

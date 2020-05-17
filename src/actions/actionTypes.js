@@ -53,6 +53,7 @@ export const GET_DONE_TASKS_SUCCESS = 'GET_DONE_TASKS_SUCCESS';
 export const TRIGGER_SEND_EMAIL = "https://a7fiukq525.execute-api.us-west-2.amazonaws.com/prod/sendemailuser"
 
 
+export const CONNECT_FAILED = 'CONNECT_FAILED';
 
 
 
